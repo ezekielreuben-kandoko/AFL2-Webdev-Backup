@@ -15,10 +15,10 @@ class MediaSeederTest extends TestCase
 
     public function test_video_seeder_corrects_the_legacy_wedding_title_typo(): void
     {
-        Storage::fake('public');
+        Storage::fake();
 
         $path = 'gallery/videos/Wdding Cinema - Vera & Nuel.mp4';
-        Storage::disk('public')->put($path, 'video');
+        Storage::put($path, 'video');
         Video::factory()->create([
             'title' => 'Wdding Cinema   Vera & Nuel',
             'path' => $path,
@@ -34,10 +34,10 @@ class MediaSeederTest extends TestCase
 
     public function test_photo_and_video_seeders_import_storage_paths_without_duplicating_records(): void
     {
-        Storage::fake('public');
-        Storage::disk('public')->put('gallery/photos/DIA00001.jpg', 'photo');
-        Storage::disk('public')->put('gallery/photos/DIA00002.jpg', 'photo');
-        Storage::disk('public')->put('gallery/videos/story.mp4', 'video');
+        Storage::fake();
+        Storage::put('gallery/photos/DIA00001.jpg', 'photo');
+        Storage::put('gallery/photos/DIA00002.jpg', 'photo');
+        Storage::put('gallery/videos/story.mp4', 'video');
 
         $this->seed(DatabaseSeeder::class);
         $this->seed(DatabaseSeeder::class);

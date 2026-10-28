@@ -6,9 +6,9 @@
     <div class="home-page">
         <section class="home-hero" aria-label="Featured wedding stories">
             <div class="home-hero-track" aria-live="off">
-                @foreach ($heroPhotos as $photo)
+                @foreach ($heroPhotos as $index => $photo)
                     <article class="home-hero-slide">
-                        <img src="{{ $photo->url }}" alt="{{ $photo->title }}" @if ($loop->first) fetchpriority="high" @else loading="lazy" @endif>
+                        <img src="{{ $photo->url }}" alt="{{ $photo->title }}" @if ($index == 0) fetchpriority="high" @else loading="lazy" @endif>
                     </article>
                 @endforeach
             </div>
@@ -55,12 +55,21 @@
                 </header>
 
                 <div class="home-gallery-grid">
+                    @php
+                        $galleryNumber = 0;
+                    @endphp
+
                     @foreach ($galleryPhotos as $photo)
-                        <a class="home-gallery-card home-gallery-card--{{ $loop->iteration }}" href="{{ route('gallery.photos') }}">
+                        @php
+                            $galleryNumber++;
+                        @endphp
+
+                        <a class="home-gallery-card home-gallery-card--{{ $galleryNumber }}" href="{{ route('gallery.photos') }}">
                             <img src="{{ $photo->url }}" alt="{{ $photo->title }}" loading="lazy">
                             <span>{{ $photo->title }} <i>— Photography by Tepuk Tangan</i></span>
                         </a>
                     @endforeach
+
                     @if ($filmVideo && $filmPoster)
                         <a class="home-gallery-card home-gallery-card--film" href="{{ route('gallery.videos') }}">
                             <img src="{{ $filmPoster->url }}" alt="{{ $filmPoster->title }}" loading="lazy">
@@ -69,31 +78,24 @@
                         </a>
                     @endif
                 </div>
+
                 <a class="home-archive-link" href="{{ route('gallery') }}">Explore all stories <span aria-hidden="true">⟶</span></a>
             </div>
         </section>
 
         <section class="home-collage" aria-labelledby="home-cta-title">
-            @if ($collagePhotos->get(0))
-                <div class="home-collage-frame home-collage-frame--one" data-parallax="0.12">
-                    <img src="{{ $collagePhotos->get(0)->url }}" alt="" aria-hidden="true" loading="lazy">
-                </div>
-            @endif
-            @if ($collagePhotos->get(1))
-                <div class="home-collage-frame home-collage-frame--two" data-parallax="-0.1">
-                    <img src="{{ $collagePhotos->get(1)->url }}" alt="" aria-hidden="true" loading="lazy">
-                </div>
-            @endif
-            @if ($collagePhotos->get(2))
-                <div class="home-collage-frame home-collage-frame--three" data-parallax="0.08">
-                    <img src="{{ $collagePhotos->get(2)->url }}" alt="" aria-hidden="true" loading="lazy">
-                </div>
-            @endif
-            @if ($collagePhotos->get(3))
-                <div class="home-collage-frame home-collage-frame--four" data-parallax="-0.14">
-                    <img src="{{ $collagePhotos->get(3)->url }}" alt="" aria-hidden="true" loading="lazy">
-                </div>
-            @endif
+            @foreach ($collageFrames as $index => $frame)
+                @if (isset($collagePhotos[$index]))
+                    @php
+                        $photo = $collagePhotos[$index];
+                    @endphp
+
+                    <div class="home-collage-frame home-collage-frame--{{ $frame['class'] }}" data-parallax="{{ $frame['parallax'] }}">
+                        <img src="{{ $photo->url }}" alt="" aria-hidden="true" loading="lazy">
+                    </div>
+                @endif
+            @endforeach
+
             <div class="home-collage-copy">
                 <p class="home-eyebrow">Crafted for once in a lifetime</p>
                 <h2 id="home-cta-title"><span>Golden moments pass</span> <span>in a heartbeat.</span> <span>Let’s make yours</span> <span>stay forever.</span></h2>

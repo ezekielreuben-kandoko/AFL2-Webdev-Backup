@@ -5,36 +5,29 @@ namespace Database\Seeders;
 use App\Models\Photo;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use RuntimeException;
 
 class PhotoSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $paths = collect(Storage::disk('public')->allFiles('gallery/photos'))
-            ->filter(fn (string $path): bool => in_array(
-                strtolower(pathinfo($path, PATHINFO_EXTENSION)),
-                ['jpg', 'jpeg', 'png', 'webp', 'avif'],
-                true,
-            ))
-            ->sort()
-            ->values();
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'avif'];
+        $paths = Storage::files('gallery/photos');
 
-        if ($paths->isEmpty()) {
-            throw new RuntimeException('No supported photo files were found in storage/app/public/gallery/photos.');
-        }
+        sort($paths);
 
         foreach ($paths as $path) {
+            $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+            if (! in_array($extension, $allowedExtensions)) {
+                continue;
+            }
+
+            $name = pathinfo($path, PATHINFO_FILENAME);
+            $title = ucwords(strtolower(str_replace(['-', '_'], ' ', $name)));
+
             Photo::query()->firstOrCreate(
                 ['path' => $path],
-                ['title' => Str::of(pathinfo($path, PATHINFO_FILENAME))
-                    ->replace(['-', '_'], ' ')
-                    ->title()
-                    ->toString()],
+                ['title' => $title],
             );
         }
     }

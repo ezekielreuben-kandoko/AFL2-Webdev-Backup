@@ -16,7 +16,7 @@ class AboutPageTest extends TestCase
             ->assertDontSee('CALIA')
             ->assertSee('aria-current="page"', false)
             ->assertSee('Photobooth')
-            ->assertSee('We don’t stage an idealized version of life.')
+            ->assertSee("We don’t stage an idealized version of life.")
             ->assertSee('Name')
             ->assertDontSee('Jo')
             ->assertDontSee('Aldo')
@@ -41,9 +41,14 @@ class AboutPageTest extends TestCase
             $videoDirectorsSection
         );
 
+        $html = '';
+        if (isset($videoDirectorsSection[1])) {
+            $html = $videoDirectorsSection[1];
+        }
+
         $this->assertSame(
             3,
-            substr_count($videoDirectorsSection[1] ?? '', '<article class="about-artist-card')
+            substr_count($html, '<article class="about-artist-card')
         );
     }
 }

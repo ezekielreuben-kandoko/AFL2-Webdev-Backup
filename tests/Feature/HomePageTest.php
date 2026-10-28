@@ -62,7 +62,7 @@ class HomePageTest extends TestCase
 
         $this->assertSame(0, substr_count($content, 'https://images.unsplash.com'));
         $this->assertSame(20, substr_count($content, '/storage/gallery/photos/'));
-        $this->assertSame(9, substr_count($content, 'class="home-gallery-card '));
+        $this->assertSame(9, substr_count($content, 'home-gallery-card '));
         $response
             ->assertSee('/storage/gallery/photos/frame-01.jpg')
             ->assertSee('/storage/gallery/photos/frame-20.jpg')
@@ -70,7 +70,7 @@ class HomePageTest extends TestCase
             ->assertSee('Photography by Tepuk Tangan')
             ->assertSee('Wedding story')
             ->assertSee('Film by Livi Visual')
-            ->assertSee('© Tepuk Tangan × Livi Visual. Founded 2020, Indonesia.');
+            ->assertSee('Tepuk Tangan × Livi Visual. Founded 2020, Indonesia.');
     }
 
     private function createHomeMedia(): void

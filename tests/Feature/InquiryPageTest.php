@@ -11,7 +11,7 @@ class InquiryPageTest extends TestCase
         $this->get('/inquiry')
             ->assertOk()
             ->assertSee('Office &amp; Studio.', false)
-            ->assertSee('Let’s capture your story.')
+            ->assertSee("Let’s capture your story.")
             ->assertSee('Your Name')
             ->assertSee('name="partner_or_brand"', false)
             ->assertSee('name="email"', false)

@@ -1,3 +1,54 @@
+@php
+    if (! isset($active)) {
+        $active = '';
+    }
+
+    $galleryActive = false;
+    if ($active == 'gallery' || $active == 'photos' || $active == 'videos') {
+        $galleryActive = true;
+    }
+
+    $homeClass = 'nav__link';
+    if ($active == 'home') {
+        $homeClass = 'nav__link is-active';
+    }
+
+    $aboutClass = 'nav__link';
+    if ($active == 'about') {
+        $aboutClass = 'nav__link is-active';
+    }
+
+    $galleryClass = 'nav__link';
+    if ($galleryActive) {
+        $galleryClass = 'nav__link is-active';
+    }
+
+    $photoClass = 'nav__dropdown-link';
+    if ($active == 'photos') {
+        $photoClass = 'nav__dropdown-link is-active';
+    }
+
+    $videoClass = 'nav__dropdown-link';
+    if ($active == 'videos') {
+        $videoClass = 'nav__dropdown-link is-active';
+    }
+
+    $photoboothClass = 'nav__link';
+    if ($active == 'photobooth') {
+        $photoboothClass = 'nav__link is-active';
+    }
+
+    $livestreamingClass = 'nav__link';
+    if ($active == 'livestreaming') {
+        $livestreamingClass = 'nav__link is-active';
+    }
+
+    $inquiryClass = 'nav__link';
+    if ($active == 'inquiry') {
+        $inquiryClass = 'nav__link is-active';
+    }
+@endphp
+
 <nav class="nav" aria-label="Navigasi utama">
     <a class="nav__brand" href="{{ route('home') }}">Holder</a>
     <button class="nav__toggle" type="button" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="primary-navigation">
@@ -6,17 +57,17 @@
         <span></span>
     </button>
     <div class="nav__menu" id="primary-navigation">
-        <a class="nav__link{{ request()->routeIs('home', 'root') ? ' is-active' : '' }}" href="{{ route('home') }}" @if (request()->routeIs('home', 'root')) aria-current="page" @endif>Home</a>
-        <a class="nav__link{{ request()->routeIs('about') ? ' is-active' : '' }}" href="{{ route('about') }}" @if (request()->routeIs('about')) aria-current="page" @endif>About</a>
+        <a class="{{ $homeClass }}" href="{{ route('home') }}" @if ($active == 'home') aria-current="page" @endif>Home</a>
+        <a class="{{ $aboutClass }}" href="{{ route('about') }}" @if ($active == 'about') aria-current="page" @endif>About</a>
         <div class="nav__item nav__item--dropdown">
-            <a class="nav__link{{ request()->routeIs('gallery', 'gallery.*') ? ' is-active' : '' }}" href="{{ route('gallery') }}" @if (request()->routeIs('gallery', 'gallery.*')) aria-current="page" @endif>Gallery</a>
+            <a class="{{ $galleryClass }}" href="{{ route('gallery') }}" @if ($galleryActive) aria-current="page" @endif>Gallery</a>
             <div class="nav__dropdown">
-                <a class="nav__dropdown-link{{ request()->routeIs('gallery.photos') ? ' is-active' : '' }}" href="{{ route('gallery.photos') }}" @if (request()->routeIs('gallery.photos')) aria-current="page" @endif>Photo</a>
-                <a class="nav__dropdown-link{{ request()->routeIs('gallery.videos') ? ' is-active' : '' }}" href="{{ route('gallery.videos') }}" @if (request()->routeIs('gallery.videos')) aria-current="page" @endif>Video</a>
+                <a class="{{ $photoClass }}" href="{{ route('gallery.photos') }}" @if ($active == 'photos') aria-current="page" @endif>Photo</a>
+                <a class="{{ $videoClass }}" href="{{ route('gallery.videos') }}" @if ($active == 'videos') aria-current="page" @endif>Video</a>
             </div>
         </div>
-        <a class="nav__link{{ request()->routeIs('photobooth') ? ' is-active' : '' }}" href="{{ route('photobooth') }}" @if (request()->routeIs('photobooth')) aria-current="page" @endif>Photobooth</a>
-        <a class="nav__link{{ request()->routeIs('livestreaming') ? ' is-active' : '' }}" href="{{ route('livestreaming') }}" @if (request()->routeIs('livestreaming')) aria-current="page" @endif>LiveStreaming</a>
-        <a class="nav__link{{ request()->routeIs('inquiry') ? ' is-active' : '' }}" href="{{ route('inquiry') }}" @if (request()->routeIs('inquiry')) aria-current="page" @endif>Inquiry</a>
+        <a class="{{ $photoboothClass }}" href="{{ route('photobooth') }}" @if ($active == 'photobooth') aria-current="page" @endif>Photobooth</a>
+        <a class="{{ $livestreamingClass }}" href="{{ route('livestreaming') }}" @if ($active == 'livestreaming') aria-current="page" @endif>LiveStreaming</a>
+        <a class="{{ $inquiryClass }}" href="{{ route('inquiry') }}" @if ($active == 'inquiry') aria-current="page" @endif>Inquiry</a>
     </div>
 </nav>

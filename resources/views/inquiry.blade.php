@@ -2,6 +2,22 @@
 
 @section('title', 'Inquiry | AFL2 Webdev')
 
+@php
+    $sessions = [
+        'wedding' => 'Wedding',
+        'pre-wedding' => 'Pre-wedding',
+        'portrait' => 'Portrait',
+        'commercial' => 'Commercial',
+        'editorial' => 'Editorial',
+    ];
+
+    $budgets = [
+        '3-5-million' => 'Rp 3jt – 5jt',
+        '5-10-million' => 'Rp 5jt – 10jt',
+        '10-million-plus' => 'Rp 10jt+',
+    ];
+@endphp
+
 @section('content')
     <div class="inquiry-page">
         <aside class="inquiry-sidebar">
@@ -80,11 +96,16 @@
                 <fieldset class="inquiry-fieldset">
                     <legend>What kind of session are you dreaming of? <span class="inquiry-required" aria-label="required">*</span></legend>
                     <div class="inquiry-pill-options">
-                        <label class="inquiry-pill"><input type="checkbox" name="session_type[]" value="wedding" required><span>Wedding</span></label>
-                        <label class="inquiry-pill"><input type="checkbox" name="session_type[]" value="pre-wedding"><span>Pre-wedding</span></label>
-                        <label class="inquiry-pill"><input type="checkbox" name="session_type[]" value="portrait"><span>Portrait</span></label>
-                        <label class="inquiry-pill"><input type="checkbox" name="session_type[]" value="commercial"><span>Commercial</span></label>
-                        <label class="inquiry-pill"><input type="checkbox" name="session_type[]" value="editorial"><span>Editorial</span></label>
+                        @php
+                            $sessionNumber = 0;
+                        @endphp
+
+                        @foreach ($sessions as $value => $label)
+                            <label class="inquiry-pill"><input type="checkbox" name="session_type[]" value="{{ $value }}" @if ($sessionNumber == 0) required @endif><span>{{ $label }}</span></label>
+                            @php
+                                $sessionNumber++;
+                            @endphp
+                        @endforeach
                     </div>
                 </fieldset>
 
@@ -102,9 +123,9 @@
                 <fieldset class="inquiry-fieldset">
                     <legend>Estimated Budget <span class="inquiry-optional">(optional)</span></legend>
                     <div class="inquiry-pill-options">
-                        <label class="inquiry-pill"><input type="radio" name="budget" value="3-5-million"><span>Rp 3jt – 5jt</span></label>
-                        <label class="inquiry-pill"><input type="radio" name="budget" value="5-10-million"><span>Rp 5jt – 10jt</span></label>
-                        <label class="inquiry-pill"><input type="radio" name="budget" value="10-million-plus"><span>Rp 10jt+</span></label>
+                        @foreach ($budgets as $value => $label)
+                            <label class="inquiry-pill"><input type="radio" name="budget" value="{{ $value }}"><span>{{ $label }}</span></label>
+                        @endforeach
                     </div>
                 </fieldset>
 

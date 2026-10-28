@@ -5,43 +5,36 @@ namespace Database\Seeders;
 use App\Models\Video;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use RuntimeException;
 
 class VideoSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $paths = collect(Storage::disk('public')->allFiles('gallery/videos'))
-            ->filter(fn (string $path): bool => in_array(
-                strtolower(pathinfo($path, PATHINFO_EXTENSION)),
-                ['mp4', 'm4v', 'mov', 'webm'],
-                true,
-            ))
-            ->sort()
-            ->values();
+        $allowedExtensions = ['mp4', 'm4v', 'mov', 'webm'];
+        $paths = Storage::files('gallery/videos');
 
-        if ($paths->isEmpty()) {
-            throw new RuntimeException('No supported video files were found in storage/app/public/gallery/videos.');
-        }
+        sort($paths);
 
         foreach ($paths as $path) {
-            $title = Str::of(pathinfo($path, PATHINFO_FILENAME))
-                ->replace(['-', '_'], ' ')
-                ->squish()
-                ->title()
-                ->replace('Wdding', 'Wedding')
-                ->toString();
+            $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+            if (! in_array($extension, $allowedExtensions)) {
+                continue;
+            }
+
+            $name = pathinfo($path, PATHINFO_FILENAME);
+            $title = str_replace(['-', '_'], ' ', $name);
+            $title = preg_replace('/\s+/', ' ', $title);
+            $title = trim($title);
+            $title = ucwords(strtolower($title));
+            $title = str_replace('Wdding', 'Wedding', $title);
 
             $video = Video::query()->firstOrCreate(
                 ['path' => $path],
                 ['title' => $title],
             );
 
-            if (Str::contains($video->title, 'Wdding')) {
+            if (strpos($video->title, 'Wdding') !== false) {
                 $video->update(['title' => $title]);
             }
         }

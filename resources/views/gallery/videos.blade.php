@@ -3,10 +3,17 @@
 @section('title', 'Films by Livi Visual | Tepuk Tangan')
 
 @section('content')
+    @php
+        $heroPosterUrl = '';
+        if ($heroPoster) {
+            $heroPosterUrl = $heroPoster->url;
+        }
+    @endphp
+
     <div class="video-page">
         <section class="video-hero" aria-labelledby="video-hero-title">
             @if ($featuredFilm)
-                <video class="video-hero-ambient" data-ambient-src="{{ $featuredFilm['video']->url }}" poster="{{ $heroPoster?->url }}" muted loop playsinline preload="none" aria-hidden="true"></video>
+                <video class="video-hero-ambient" data-ambient-src="{{ $featuredFilm['video']->url }}" poster="{{ $heroPosterUrl }}" muted loop playsinline preload="none" aria-hidden="true"></video>
             @endif
             @if ($heroPoster)
                 <img class="video-hero-poster" src="{{ $heroPoster->url }}" alt="" aria-hidden="true" fetchpriority="high">
@@ -18,7 +25,7 @@
                 <p class="video-hero-subtitle">Atmosphere, unscripted emotion, and timeless soundscapes—capturing how your golden moments truly felt.</p>
             </div>
             <div class="video-hero-hud">
-                <button class="video-sound-toggle" type="button" data-ambient-sound aria-pressed="false" @if (! $featuredFilm) disabled @endif>
+                <button class="video-sound-toggle" type="button" data-ambient-sound aria-pressed="false" @if ($featuredFilm == null) disabled @endif>
                     <span aria-hidden="true">◖</span> Sound Off
                 </button>
                 <a href="#selected-films">Explore selected films <span aria-hidden="true">↓</span></a>
@@ -41,10 +48,25 @@
                 </div>
             </header>
 
-            @if ($films->isNotEmpty())
+            @if (count($films) > 0)
                 <div class="video-film-grid">
+                    @php
+                        $filmNumber = 0;
+                    @endphp
+
                     @foreach ($films as $film)
-                        <button class="video-film-card video-film-card--{{ $loop->iteration === 1 ? 'feature' : ($loop->iteration % 2 === 0 ? 'pair-left' : 'pair-right') }}" type="button" data-film-card data-film-category="{{ $film['category'] }}" data-film-open data-film-index="{{ $loop->index }}" data-film-src="{{ $film['video']->url }}" data-film-title="{{ $film['video']->title }}" data-film-location="Indonesia" @if ($film['poster']) data-film-poster="{{ $film['poster']->url }}" @endif>
+                        @php
+                            $filmNumber++;
+
+                            $filmClass = 'pair-right';
+                            if ($filmNumber == 1) {
+                                $filmClass = 'feature';
+                            } elseif ($filmNumber % 2 == 0) {
+                                $filmClass = 'pair-left';
+                            }
+                        @endphp
+
+                        <button class="video-film-card video-film-card--{{ $filmClass }}" type="button" data-film-card data-film-category="{{ $film['category'] }}" data-film-open data-film-index="{{ $filmNumber - 1 }}" data-film-src="{{ $film['video']->url }}" data-film-title="{{ $film['video']->title }}" data-film-location="Indonesia" @if ($film['poster']) data-film-poster="{{ $film['poster']->url }}" @endif>
                             <span class="video-film-poster">
                                 @if ($film['poster'])
                                     <img src="{{ $film['poster']->url }}" alt="" aria-hidden="true" loading="lazy">
@@ -55,7 +77,7 @@
                             <span class="video-film-meta">
                                 <span>
                                     <span class="video-film-title">{{ $film['video']->title }}</span>
-                                    <span class="video-film-detail">Indonesia · {{ str($film['category'])->replace('-', ' ')->upper() }}</span>
+                                    <span class="video-film-detail">Indonesia · {{ $film['label'] }}</span>
                                 </span>
                                 <span class="video-film-duration">Livi Visual</span>
                             </span>
@@ -121,7 +143,7 @@
                     <video data-theater-video controls playsinline preload="none"></video>
                 </div>
                 <footer class="video-theater-footer">
-                    <button type="button" data-theater-next @if (! $nextFilm) hidden @endif>Next film <span aria-hidden="true">⟶</span></button>
+                    <button type="button" data-theater-next @if ($nextFilm == null) hidden @endif>Next film <span aria-hidden="true">⟶</span></button>
                     <a href="{{ route('inquiry') }}">Inquire about this film style <span aria-hidden="true">⟶</span></a>
                 </footer>
             </div>
