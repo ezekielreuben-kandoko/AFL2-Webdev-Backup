@@ -6,21 +6,11 @@
     <div class="home-page">
         <section class="home-hero" aria-label="Featured wedding stories">
             <div class="home-hero-track" aria-live="off">
-                <article class="home-hero-slide">
-                    <img src="/storage/gallery/photos/DIA00001.jpg" alt="Wedding photography by Tepuk Tangan" fetchpriority="high">
-                </article>
-                <article class="home-hero-slide">
-                    <img src="/storage/gallery/photos/DIA00003.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                </article>
-                <article class="home-hero-slide">
-                    <img src="/storage/gallery/photos/DIA00007.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                </article>
-                <article class="home-hero-slide">
-                    <img src="/storage/gallery/photos/DIA00021.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                </article>
-                <article class="home-hero-slide">
-                    <img src="/storage/gallery/photos/DIA00039.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                </article>
+                @foreach ($heroSlides as $index => $file)
+                    <article class="home-hero-slide">
+                        <img src="/storage/gallery/photos/{{ $file }}" alt="Wedding photography by Tepuk Tangan" @if ($index === 0) fetchpriority="high" @else loading="lazy" @endif>
+                    </article>
+                @endforeach
             </div>
             <div class="home-hero-vignette" aria-hidden="true"></div>
         </section>
@@ -53,38 +43,13 @@
                 </header>
 
                 <div class="home-gallery-grid">
-                    <a class="home-gallery-card home-gallery-card--1" href="{{ route('gallery.photos') }}">
-                        <img src="/storage/gallery/photos/DIA00313.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                        <span><i>Photography by Tepuk Tangan</i></span>
-                    </a>
-                    <a class="home-gallery-card home-gallery-card--2" href="{{ route('gallery.photos') }}">
-                        <img src="/storage/gallery/photos/DIA00368.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                        <span><i>Photography by Tepuk Tangan</i></span>
-                    </a>
-                    <a class="home-gallery-card home-gallery-card--3" href="{{ route('gallery.photos') }}">
-                        <img src="/storage/gallery/photos/DIA00384.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                        <span><i>Photography by Tepuk Tangan</i></span>
-                    </a>
-                    <a class="home-gallery-card home-gallery-card--4" href="{{ route('gallery.photos') }}">
-                        <img src="/storage/gallery/photos/DIA00396.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                        <span><i>Photography by Tepuk Tangan</i></span>
-                    </a>
-                    <a class="home-gallery-card home-gallery-card--5" href="{{ route('gallery.photos') }}">
-                        <img src="/storage/gallery/photos/DIA00462.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                        <span><i>Photography by Tepuk Tangan</i></span>
-                    </a>
-                    <a class="home-gallery-card home-gallery-card--6" href="{{ route('gallery.photos') }}">
-                        <img src="/storage/gallery/photos/DIA00465.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                        <span><i>Photography by Tepuk Tangan</i></span>
-                    </a>
-                    <a class="home-gallery-card home-gallery-card--7" href="{{ route('gallery.photos') }}">
-                        <img src="/storage/gallery/photos/DIA00478.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                        <span><i>Photography by Tepuk Tangan</i></span>
-                    </a>
-                    <a class="home-gallery-card home-gallery-card--8" href="{{ route('gallery.photos') }}">
-                        <img src="/storage/gallery/photos/DIA00486.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                        <span><i>Photography by Tepuk Tangan</i></span>
-                    </a>
+                    @foreach ($galleryPhotos as $index => $file)
+                        <a class="home-gallery-card home-gallery-card--{{ $index + 1 }}" href="{{ route('gallery.photos') }}">
+                            <img src="/storage/gallery/photos/{{ $file }}" alt="Wedding photography by Tepuk Tangan" loading="lazy">
+                            <span><i>Photography by Tepuk Tangan</i></span>
+                        </a>
+                    @endforeach
+
                     @if ($filmVideo)
                         <a class="home-gallery-card home-gallery-card--film" href="{{ route('gallery.videos') }}">
                             <img src="/storage/gallery/photos/DIA08889.jpg" alt="Wedding film by Livi Visual" loading="lazy">
@@ -98,18 +63,11 @@
         </section>
 
         <section class="home-collage" aria-labelledby="home-cta-title">
-            <div class="home-collage-frame home-collage-frame--one" data-parallax="0.12">
-                <img src="/storage/gallery/photos/DIA08913.jpg" alt="" aria-hidden="true" loading="lazy">
-            </div>
-            <div class="home-collage-frame home-collage-frame--two" data-parallax="-0.1">
-                <img src="/storage/gallery/photos/DIA08966.jpg" alt="" aria-hidden="true" loading="lazy">
-            </div>
-            <div class="home-collage-frame home-collage-frame--three" data-parallax="0.08">
-                <img src="/storage/gallery/photos/DIA09013.jpg" alt="" aria-hidden="true" loading="lazy">
-            </div>
-            <div class="home-collage-frame home-collage-frame--four" data-parallax="-0.14">
-                <img src="/storage/gallery/photos/DIA09069.jpg" alt="" aria-hidden="true" loading="lazy">
-            </div>
+            @foreach ($collageFrames as $frame)
+                <div class="home-collage-frame home-collage-frame--{{ $frame['class'] }}" data-parallax="{{ $frame['parallax'] }}">
+                    <img src="/storage/gallery/photos/{{ $frame['file'] }}" alt="" aria-hidden="true" loading="lazy">
+                </div>
+            @endforeach
             <div class="home-collage-copy">
                 <p class="home-eyebrow">Crafted for once in a lifetime</p>
                 <h2 id="home-cta-title"><span>Golden moments pass</span> <span>in a heartbeat.</span> <span>Let’s make yours</span> <span>stay forever.</span></h2>

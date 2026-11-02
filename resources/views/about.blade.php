@@ -2,56 +2,6 @@
 
 @section('title', 'About the Collective | Holder')
 
-@php
-    $photographers = [
-        [
-            'portrait' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&h=1200&q=85',
-            'work' => 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&h=1200&q=85',
-            'work_alt' => 'A candid wedding moment photographed in soft light',
-            'offset' => false,
-            'link_text' => 'View Name portfolio',
-            'portrait_lazy' => false,
-        ],
-        [
-            'portrait' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&h=1200&q=85',
-            'work' => 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=900&h=1200&q=85',
-            'work_alt' => 'An intimate portrait in a natural setting',
-            'offset' => true,
-            'link_text' => 'View Name’s portfolio',
-            'portrait_lazy' => true,
-        ],
-        [
-            'portrait' => 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&h=1200&q=85',
-            'work' => 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&h=1200&q=85',
-            'work_alt' => 'A joyful moment between two people',
-            'offset' => false,
-            'link_text' => 'View Name’s portfolio',
-            'portrait_lazy' => true,
-        ],
-    ];
-
-    $directors = [
-        [
-            'portrait' => 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1000&h=1300&q=85',
-            'work' => 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&h=800&q=85',
-            'work_alt' => 'A cinematic wedding film still',
-            'offset' => false,
-        ],
-        [
-            'portrait' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1000&h=1300&q=85',
-            'work' => 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&h=800&q=85',
-            'work_alt' => 'An unscripted moment from a wedding film',
-            'offset' => true,
-        ],
-        [
-            'portrait' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1000&h=1300&q=85',
-            'work' => 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&h=800&q=85',
-            'work_alt' => 'An unscripted moment from a wedding film',
-            'offset' => false,
-        ],
-    ];
-@endphp
-
 @section('content')
     <div class="about-page" id="top">
         <section class="about-hero" aria-labelledby="about-manifesto">
@@ -82,30 +32,7 @@
 
             <div class="about-artist-grid about-artist-grid--three">
                 @foreach ($photographers as $artist)
-                    @php
-                        $artistClass = 'about-artist-card';
-                        if ($artist['offset']) {
-                            $artistClass = 'about-artist-card about-artist-card--offset';
-                        }
-                    @endphp
-
-                    <article class="{{ $artistClass }}">
-                        <a class="about-artist-image-link" href="{{ route('gallery.photos') }}" aria-label="View Name's portfolio">
-                            <div class="about-artist-image">
-                                <img class="about-artist-portrait" src="{{ $artist['portrait'] }}" alt="Editorial portrait representing Name" @if ($artist['portrait_lazy']) loading="lazy" @endif>
-                                <img class="about-artist-work" src="{{ $artist['work'] }}" alt="{{ $artist['work_alt'] }}" loading="lazy">
-                                <span class="about-image-hint">View selected work</span>
-                            </div>
-                        </a>
-                        <div class="about-artist-copy">
-                            <div class="about-artist-heading">
-                                <h3>Name</h3>
-                                <p>Holder</p>
-                            </div>
-                            <p class="about-artist-bio">Holder</p>
-                            <a class="about-text-link" href="{{ route('gallery.photos') }}">{{ $artist['link_text'] }} <span aria-hidden="true">⟶</span></a>
-                        </div>
-                    </article>
+                    @include('partials.artist-card', ['artist' => $artist, 'film' => false])
                 @endforeach
             </div>
         </section>
@@ -139,31 +66,7 @@
 
             <div class="about-artist-grid about-artist-grid--three">
                 @foreach ($directors as $artist)
-                    @php
-                        $artistClass = 'about-artist-card';
-                        if ($artist['offset']) {
-                            $artistClass = 'about-artist-card about-artist-card--offset';
-                        }
-                    @endphp
-
-                    <article class="{{ $artistClass }}">
-                        <a class="about-artist-image-link" href="{{ route('gallery.videos') }}" aria-label="Watch films by Name">
-                            <div class="about-artist-image about-artist-image--film">
-                                <img class="about-artist-portrait" src="{{ $artist['portrait'] }}" alt="Editorial portrait representing Name" loading="lazy">
-                                <img class="about-artist-work" src="{{ $artist['work'] }}" alt="{{ $artist['work_alt'] }}" loading="lazy">
-                                <span class="about-play-badge" aria-hidden="true">▶</span>
-                                <span class="about-image-hint">Watch selected films</span>
-                            </div>
-                        </a>
-                        <div class="about-artist-copy">
-                            <div class="about-artist-heading">
-                                <h3>Name</h3>
-                                <p>Holder</p>
-                            </div>
-                            <p class="about-artist-bio">Holder</p>
-                            <a class="about-text-link" href="{{ route('gallery.videos') }}">Watch films <span aria-hidden="true">⟶</span></a>
-                        </div>
-                    </article>
+                    @include('partials.artist-card', ['artist' => $artist, 'film' => true])
                 @endforeach
             </div>
         </section>
@@ -176,11 +79,7 @@
 
         <footer class="about-footer">
             <p>© 2026 Holder. All stories held with care.</p>
-            <nav aria-label="Social media">
-                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
-                <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a>
-                <a href="https://www.whatsapp.com/" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-            </nav>
+            @include('partials.social-links')
         </footer>
     </div>
 @endsection

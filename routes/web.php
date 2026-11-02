@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PhotoController;
@@ -9,25 +10,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('root');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/about', function () {
-    return view('about', ['active' => 'about']);
-})->name('about');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
-Route::get('/inquiry', function () {
-    return view('inquiry', ['active' => 'inquiry']);
-})->name('inquiry');
-
-Route::get('/livestreaming', function () {
-    return view('livestreaming', ['active' => 'livestreaming']);
-})->name('livestreaming');
-
-Route::get('/photobooth', function () {
-    return view('photobooth', ['active' => 'photobooth']);
-})->name('photobooth');
-
-Route::get('/lumenara', function () {
-    return view('lumenara', ['active' => 'lumenara']);
-})->name('lumenara');
+foreach (['inquiry', 'livestreaming', 'photobooth', 'lumenara'] as $page) {
+    Route::view("/{$page}", $page, ['active' => $page])->name($page);
+}
 
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/gallery/photos', [PhotoController::class, 'index'])->name('gallery.photos');

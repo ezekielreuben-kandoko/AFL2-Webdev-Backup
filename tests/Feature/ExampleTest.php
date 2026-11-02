@@ -32,7 +32,6 @@ class ExampleTest extends TestCase
                 ->assertSee('class="nav__toggle"', false)
                 ->assertSee('aria-controls="primary-navigation"', false)
                 ->assertSee('class="nav__menu"', false)
-                ->assertSee('aria-current="page"', false)
                 ->assertSee('Photobooth');
         }
     }

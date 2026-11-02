@@ -303,3 +303,71 @@ if (parallaxFrames.length && !prefersReducedMotion) {
     window.addEventListener('resize', requestParallaxUpdate);
     requestParallaxUpdate();
 }
+
+document.querySelectorAll('.inquiry-form').forEach((form) => {
+    const number = form.dataset.whatsappNumber;
+
+    if (!number) {
+        return;
+    }
+
+    const getValue = (name) => form.elements[name]?.value?.trim() ?? '';
+
+    const getPillLabels = (name) => [...form.querySelectorAll(`input[name="${name}"]`)]
+        .filter((input) => input.checked)
+        .map((input) => input.nextElementSibling?.textContent.trim() || input.value);
+
+    const formatDate = (value) => {
+        if (!value) {
+            return '';
+        }
+
+        const [year, month, day] = value.split('-').map(Number);
+
+        if (!year || !month || !day) {
+            return value;
+        }
+
+        return new Date(year, month - 1, day).toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        });
+    };
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const vision = getValue('vision');
+        const lines = ['Halo, saya ingin melakukan inquiry.', ''];
+
+        const addLine = (label, value) => {
+            if (value) {
+                lines.push(`${label}: ${value}`);
+            }
+        };
+
+        addLine('Nama', getValue('name'));
+        addLine('Partner / Brand', getValue('partner_or_brand'));
+        addLine('Email', getValue('email'));
+        addLine('WhatsApp', getValue('whatsapp'));
+        addLine('Instagram', getValue('instagram'));
+        addLine('Jenis Session', getPillLabels('session_type[]').join(', '));
+        addLine('Tanggal Shoot', formatDate(getValue('shoot_date')));
+        addLine('Lokasi', getValue('location'));
+        addLine('Budget', getPillLabels('budget')[0] ?? '');
+
+        if (vision) {
+            lines.push('', 'Cerita / moodboard:', vision);
+        }
+
+        const url = `https://wa.me/${number}?text=${encodeURIComponent(lines.join('\n'))}`;
+        const opened = window.open(url, '_blank');
+
+        if (opened) {
+            opened.opener = null;
+        } else {
+            window.location.href = url;
+        }
+    });
+});

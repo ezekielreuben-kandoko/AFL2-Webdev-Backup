@@ -2,22 +2,6 @@
 
 @section('title', 'Inquiry | AFL2 Webdev')
 
-@php
-    $sessions = [
-        'wedding' => 'Wedding',
-        'pre-wedding' => 'Pre-wedding',
-        'portrait' => 'Portrait',
-        'commercial' => 'Commercial',
-        'editorial' => 'Editorial',
-    ];
-
-    $budgets = [
-        '3-5-million' => 'Rp 3jt – 5jt',
-        '5-10-million' => 'Rp 5jt – 10jt',
-        '10-million-plus' => 'Rp 10jt+',
-    ];
-@endphp
-
 @section('content')
     <div class="inquiry-page">
         <aside class="inquiry-sidebar">
@@ -53,8 +37,8 @@
             <section class="inquiry-contact-details" aria-labelledby="contact-title">
                 <h2 class="inquiry-heading" id="contact-title">Let’s capture your story.</h2>
                 <address class="inquiry-contacts">
-                    <a href="tel:+6287898823735">Holder1</a>
-                    <a href="tel:+628138080613">Holder2</a>
+                    <a href="tel:+6285748430957">Holder1</a>
+                    <a href="tel:+6285748430957">Holder2</a>
                     <a href="mailto:info.caliaphotos@gmail.com">Holder@gmail.com</a>
                 </address>
             </section>
@@ -65,7 +49,7 @@
             <h2 class="inquiry-form-title" id="inquiry-title">Inquire within.</h2>
             <p class="inquiry-intro">Tell us about your story, moodboard, or dream session. The more we know, the more personal we can make it.</p>
 
-            <form class="inquiry-form">
+            <form class="inquiry-form" data-whatsapp-number="6285748430957">
                 <div class="inquiry-name-fields">
                     <label class="inquiry-field">
                         <span>Your Name <span class="inquiry-required" aria-label="required">*</span></span>
@@ -84,7 +68,7 @@
                     </label>
                     <label class="inquiry-field">
                         <span>WhatsApp Number</span>
-                        <input type="tel" name="whatsapp" autocomplete="tel" placeholder="+62">
+                        <input type="tel" name="whatsapp" autocomplete="tel" placeholder="+6285748430957">
                     </label>
                 </div>
 
@@ -96,15 +80,8 @@
                 <fieldset class="inquiry-fieldset">
                     <legend>What kind of session are you dreaming of? <span class="inquiry-required" aria-label="required">*</span></legend>
                     <div class="inquiry-pill-options">
-                        @php
-                            $sessionNumber = 0;
-                        @endphp
-
-                        @foreach ($sessions as $value => $label)
-                            <label class="inquiry-pill"><input type="checkbox" name="session_type[]" value="{{ $value }}" @if ($sessionNumber == 0) required @endif><span>{{ $label }}</span></label>
-                            @php
-                                $sessionNumber++;
-                            @endphp
+                        @foreach (['wedding' => 'Wedding', 'pre-wedding' => 'Pre-wedding', 'portrait' => 'Portrait', 'commercial' => 'Commercial', 'editorial' => 'Editorial'] as $value => $label)
+                            <label class="inquiry-pill"><input type="checkbox" name="session_type[]" value="{{ $value }}" @if ($loop->first) required @endif><span>{{ $label }}</span></label>
                         @endforeach
                     </div>
                 </fieldset>
@@ -123,7 +100,7 @@
                 <fieldset class="inquiry-fieldset">
                     <legend>Estimated Budget <span class="inquiry-optional">(optional)</span></legend>
                     <div class="inquiry-pill-options">
-                        @foreach ($budgets as $value => $label)
+                        @foreach (['3-5-million' => 'Rp 3jt – 5jt', '5-10-million' => 'Rp 5jt – 10jt', '10-million-plus' => 'Rp 10jt+'] as $value => $label)
                             <label class="inquiry-pill"><input type="radio" name="budget" value="{{ $value }}"><span>{{ $label }}</span></label>
                         @endforeach
                     </div>
@@ -135,13 +112,15 @@
                 </label>
 
                 <div class="inquiry-submit-area">
-                    <button class="inquiry-submit" type="button">Send Inquiry <span aria-hidden="true">→</span></button>
+                    <button class="inquiry-submit" type="submit">Send Inquiry <span aria-hidden="true">→</span></button>
                     <p class="inquiry-response-note">
                         We typically respond within 24–48 hours. For urgent commercial bookings,
-                        <a href="https://wa.me/6287898823735">reach us directly via WhatsApp</a>.
+                        <a href="https://wa.me/6285748430957">reach us directly via WhatsApp</a>.
                     </p>
                 </div>
             </form>
         </section>
     </div>
+
+    @vite('resources/js/app.js')
 @endsection

@@ -10,33 +10,39 @@ class VideoSeeder extends Seeder
 {
     public function run(): void
     {
-        $allowedExtensions = ['mp4', 'm4v', 'mov', 'webm'];
-        $paths = Storage::files('gallery/videos');
+        $extensions = ['mp4', 'm4v', 'mov', 'webm'];
 
-        sort($paths);
-
-        foreach ($paths as $path) {
-            $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-
-            if (! in_array($extension, $allowedExtensions)) {
-                continue;
-            }
-
-            $name = pathinfo($path, PATHINFO_FILENAME);
-            $title = str_replace(['-', '_'], ' ', $name);
-            $title = preg_replace('/\s+/', ' ', $title);
-            $title = trim($title);
-            $title = ucwords(strtolower($title));
-            $title = str_replace('Wdding', 'Wedding', $title);
+        foreach ($this->mediaPaths('gallery/videos', $extensions) as $path) {
+            $title = $this->titleFromPath($path);
 
             $video = Video::query()->firstOrCreate(
                 ['path' => $path],
                 ['title' => $title],
             );
 
-            if (strpos($video->title, 'Wdding') !== false) {
+            if (str_contains($video->title, 'Wdding')) {
                 $video->update(['title' => $title]);
             }
         }
+    }
+
+    protected function mediaPaths(string $directory, array $allowedExtensions): array
+    {
+        $paths = Storage::files($directory);
+        sort($paths);
+
+        return array_values(array_filter($paths, function (string $path) use ($allowedExtensions): bool {
+            return in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), $allowedExtensions, true);
+        }));
+    }
+
+    protected function titleFromPath(string $path): string
+    {
+        $name = pathinfo($path, PATHINFO_FILENAME);
+        $title = preg_replace('/[\-_]+/', ' ', $name);
+        $title = preg_replace('/\s+/', ' ', $title);
+        $title = ucwords(strtolower(trim($title)));
+
+        return str_replace('Wdding', 'Wedding', $title);
     }
 }

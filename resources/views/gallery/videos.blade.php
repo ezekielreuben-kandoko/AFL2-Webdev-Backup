@@ -3,17 +3,10 @@
 @section('title', 'Films by Livi Visual | Tepuk Tangan')
 
 @section('content')
-    @php
-        $heroPosterUrl = '';
-        if ($heroPoster) {
-            $heroPosterUrl = $heroPoster->url;
-        }
-    @endphp
-
     <div class="video-page">
         <section class="video-hero" aria-labelledby="video-hero-title">
             @if ($featuredFilm)
-                <video class="video-hero-ambient" data-ambient-src="{{ $featuredFilm['video']->url }}" poster="{{ $heroPosterUrl }}" muted loop playsinline preload="none" aria-hidden="true"></video>
+                <video class="video-hero-ambient" data-ambient-src="{{ $featuredFilm['video']->url }}" poster="{{ $heroPoster?->url }}" muted loop playsinline preload="none" aria-hidden="true"></video>
             @endif
             @if ($heroPoster)
                 <img class="video-hero-poster" src="{{ $heroPoster->url }}" alt="" aria-hidden="true" fetchpriority="high">
@@ -25,7 +18,7 @@
                 <p class="video-hero-subtitle">Atmosphere, unscripted emotion, and timeless soundscapes—capturing how your golden moments truly felt.</p>
             </div>
             <div class="video-hero-hud">
-                <button class="video-sound-toggle" type="button" data-ambient-sound aria-pressed="false" @if ($featuredFilm == null) disabled @endif>
+                <button class="video-sound-toggle" type="button" data-ambient-sound aria-pressed="false" @if ($featuredFilm === null) disabled @endif>
                     <span aria-hidden="true">◖</span> Sound Off
                 </button>
                 <a href="#selected-films">Explore selected films <span aria-hidden="true">↓</span></a>
@@ -50,23 +43,13 @@
 
             @if (count($films) > 0)
                 <div class="video-film-grid">
-                    @php
-                        $filmNumber = 0;
-                    @endphp
-
                     @foreach ($films as $film)
-                        @php
-                            $filmNumber++;
-
-                            $filmClass = 'pair-right';
-                            if ($filmNumber == 1) {
-                                $filmClass = 'feature';
-                            } elseif ($filmNumber % 2 == 0) {
-                                $filmClass = 'pair-left';
-                            }
-                        @endphp
-
-                        <button class="video-film-card video-film-card--{{ $filmClass }}" type="button" data-film-card data-film-category="{{ $film['category'] }}" data-film-open data-film-index="{{ $filmNumber - 1 }}" data-film-src="{{ $film['video']->url }}" data-film-title="{{ $film['video']->title }}" data-film-location="Indonesia" @if ($film['poster']) data-film-poster="{{ $film['poster']->url }}" @endif>
+                        <button @class([
+                            'video-film-card',
+                            'video-film-card--feature' => $loop->first,
+                            'video-film-card--pair-left' => ! $loop->first && $loop->even,
+                            'video-film-card--pair-right' => ! $loop->first && ! $loop->even,
+                        ]) type="button" data-film-card data-film-category="{{ $film['category'] }}" data-film-open data-film-index="{{ $loop->index }}" data-film-src="{{ $film['video']->url }}" data-film-title="{{ $film['video']->title }}" data-film-location="Indonesia" @if ($film['poster']) data-film-poster="{{ $film['poster']->url }}" @endif>
                             <span class="video-film-poster">
                                 @if ($film['poster'])
                                     <img src="{{ $film['poster']->url }}" alt="" aria-hidden="true" loading="lazy">
@@ -123,11 +106,7 @@
 
         <footer class="video-footer">
             <p>© Tepuk Tangan × Livi Visual. Founded January 2020, Indonesia.</p>
-            <nav aria-label="Social media">
-                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
-                <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a>
-                <a href="https://www.whatsapp.com/" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-            </nav>
+            @include('partials.social-links')
         </footer>
 
         <div class="video-theater" data-video-theater aria-hidden="true" hidden>
@@ -143,7 +122,7 @@
                     <video data-theater-video controls playsinline preload="none"></video>
                 </div>
                 <footer class="video-theater-footer">
-                    <button type="button" data-theater-next @if ($nextFilm == null) hidden @endif>Next film <span aria-hidden="true">⟶</span></button>
+                    <button type="button" data-theater-next @if ($nextFilm === null) hidden @endif>Next film <span aria-hidden="true">⟶</span></button>
                     <a href="{{ route('inquiry') }}">Inquire about this film style <span aria-hidden="true">⟶</span></a>
                 </footer>
             </div>

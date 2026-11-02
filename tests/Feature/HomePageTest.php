@@ -27,7 +27,7 @@ class HomePageTest extends TestCase
             ->assertSee('Golden moments pass')
             ->assertSee('in a heartbeat.')
             ->assertSee('stay forever.')
-            ->assertSee(route('about'))
+            ->assertSee(route('photobooth'))
             ->assertSee(route('gallery'))
             ->assertSee(route('inquiry'));
 

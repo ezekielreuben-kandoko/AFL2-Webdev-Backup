@@ -10,60 +10,42 @@ class VideoController extends Controller
 {
     public function index(): View
     {
-        $videos = Video::query()->orderBy('path')->get()->all();
-        $posters = Photo::query()->orderBy('path')->limit(count($videos) + 1)->get()->all();
+        $videos = Video::query()->orderBy('path')->get();
+        $posters = Photo::query()->orderBy('path')->limit($videos->count() + 1)->get();
 
-        $films = [];
+        $films = $videos->values()->map(function (Video $video, int $index) use ($posters): array {
+            $category = $this->categoryFor($video->title);
 
-        foreach ($videos as $index => $video) {
-            $title = strtolower($video->title);
-
-            if (strpos($title, 'pre-wedding') !== false || strpos($title, 'pre wedding') !== false || strpos($title, 'elopement') !== false) {
-                $category = 'pre-wedding';
-            } elseif (strpos($title, 'portrait') !== false || strpos($title, 'intimate') !== false) {
-                $category = 'portraits';
-            } elseif (strpos($title, 'teaser') !== false || strpos($title, 'reel') !== false) {
-                $category = 'reels';
-            } else {
-                $category = 'wedding-cinema';
-            }
-
-            $poster = null;
-            if (isset($posters[$index + 1])) {
-                $poster = $posters[$index + 1];
-            } elseif (isset($posters[0])) {
-                $poster = $posters[0];
-            }
-
-            $films[] = [
+            return [
                 'video' => $video,
-                'poster' => $poster,
+                'poster' => $posters->get($index + 1) ?? $posters->first(),
                 'category' => $category,
                 'label' => strtoupper(str_replace('-', ' ', $category)),
             ];
-        }
-
-        $heroPoster = null;
-        if (isset($posters[0])) {
-            $heroPoster = $posters[0];
-        }
-
-        $featuredFilm = null;
-        if (isset($films[0])) {
-            $featuredFilm = $films[0];
-        }
-
-        $nextFilm = null;
-        if (isset($films[1])) {
-            $nextFilm = $films[1];
-        }
+        })->all();
 
         return view('gallery.videos', [
             'active' => 'videos',
             'films' => $films,
-            'heroPoster' => $heroPoster,
-            'featuredFilm' => $featuredFilm,
-            'nextFilm' => $nextFilm,
+            'heroPoster' => $posters->first(),
+            'featuredFilm' => $films[0] ?? null,
+            'nextFilm' => $films[1] ?? null,
         ]);
+    }
+
+    private function categoryFor(string $title): string
+    {
+        $title = strtolower($title);
+
+        return match (true) {
+            str_contains($title, 'pre-wedding'),
+            str_contains($title, 'pre wedding'),
+            str_contains($title, 'elopement') => 'pre-wedding',
+            str_contains($title, 'portrait'),
+            str_contains($title, 'intimate') => 'portraits',
+            str_contains($title, 'teaser'),
+            str_contains($title, 'reel') => 'reels',
+            default => 'wedding-cinema',
+        };
     }
 }
