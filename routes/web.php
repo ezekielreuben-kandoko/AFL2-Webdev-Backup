@@ -21,9 +21,13 @@ Route::get('/livestreaming', function () {
     return view('livestreaming', ['active' => 'livestreaming']);
 })->name('livestreaming');
 
-Route::get('/photoboot', function () {
-    return view('photoboot', ['active' => 'photobooth']);
+Route::get('/photobooth', function () {
+    return view('photobooth', ['active' => 'photobooth']);
 })->name('photobooth');
+
+Route::get('/lumenara', function () {
+    return view('lumenara', ['active' => 'lumenara']);
+})->name('lumenara');
 
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/gallery/photos', [PhotoController::class, 'index'])->name('gallery.photos');

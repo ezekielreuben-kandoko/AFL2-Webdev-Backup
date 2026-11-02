@@ -27,18 +27,61 @@ document.querySelectorAll('.home-hero').forEach((hero) => {
     const track = hero.querySelector('.home-hero-track');
     const slides = [...hero.querySelectorAll('.home-hero-slide')];
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let activeSlide = 0;
+    let activeSlide = 1;
     let startX = null;
     let autoAdvance;
+    let loopResetTimeout;
 
     if (!track || slides.length === 0) {
         return;
     }
 
-    const showSlide = (index) => {
-        activeSlide = (index + slides.length) % slides.length;
-        track.style.setProperty('--home-slide-index', activeSlide);
+    const createClone = (slide) => {
+        const clone = slide.cloneNode(true);
+
+        clone.setAttribute('aria-hidden', 'true');
+        clone.querySelectorAll('img').forEach((image) => {
+            image.alt = '';
+            image.removeAttribute('fetchpriority');
+        });
+
+        return clone;
     };
+
+    track.prepend(createClone(slides[slides.length - 1]));
+    track.append(createClone(slides[0]));
+    track.style.setProperty('--home-slide-index', activeSlide);
+
+    const resetToRealSlide = () => {
+        if (activeSlide !== 0 && activeSlide !== slides.length + 1) {
+            return;
+        }
+
+        window.clearTimeout(loopResetTimeout);
+        activeSlide = activeSlide === 0 ? slides.length : 1;
+        track.style.transition = 'none';
+        track.style.setProperty('--home-slide-index', activeSlide);
+        void track.offsetWidth;
+        track.style.transition = '';
+    };
+
+    const showSlide = (index) => {
+        window.clearTimeout(loopResetTimeout);
+        activeSlide = index;
+        track.style.setProperty('--home-slide-index', activeSlide);
+
+        if (reducedMotion) {
+            resetToRealSlide();
+        } else if (activeSlide === 0 || activeSlide === slides.length + 1) {
+            loopResetTimeout = window.setTimeout(resetToRealSlide, 1200);
+        }
+    };
+
+    track.addEventListener('transitionend', (event) => {
+        if (event.target === track && event.propertyName === 'transform') {
+            resetToRealSlide();
+        }
+    });
 
     const restartAutoAdvance = () => {
         window.clearInterval(autoAdvance);

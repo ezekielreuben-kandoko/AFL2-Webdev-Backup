@@ -25,7 +25,7 @@ class ExampleTest extends TestCase
 
     public function test_all_navigation_pages_render_the_shared_navigation(): void
     {
-        foreach (['/home', '/inquiry', '/livestreaming', '/gallery', '/photoboot', '/about'] as $path) {
+        foreach (['/home', '/inquiry', '/livestreaming', '/gallery', '/photobooth', '/about'] as $path) {
             $this->get($path)
                 ->assertOk()
                 ->assertSee('class="nav"', false)

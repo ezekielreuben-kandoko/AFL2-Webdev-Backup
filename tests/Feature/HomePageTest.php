@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Photo;
 use App\Models\Video;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Tests\TestCase;
@@ -13,14 +12,15 @@ class HomePageTest extends TestCase
 
     public function test_home_page_renders_the_editorial_sections_and_existing_navigation(): void
     {
-        $this->createHomeMedia();
+        $this->createHomeVideo();
 
         $response = $this->get('/')->assertOk();
 
         $response
             ->assertSee('class="nav"', false)
             ->assertSee('class="home-hero"', false)
-            ->assertSee('Tepuk Tangan × Livi Visual — Est. January 2020, Indonesia')
+            ->assertSee('class="home-intro-figure"', false)
+            ->assertDontSee('<figcaption>', false)
             ->assertSee('Where fleeting golden hours become classic, living heirlooms.')
             ->assertSee('Golden Moments')
             ->assertSee('Crafted for once in a lifetime')
@@ -37,7 +37,7 @@ class HomePageTest extends TestCase
 
     public function test_home_page_omits_gallery_filters_and_manual_carousel_controls(): void
     {
-        $this->createHomeMedia();
+        $this->createHomeVideo();
 
         $response = $this->get('/home');
 
@@ -49,39 +49,53 @@ class HomePageTest extends TestCase
             ->assertDontSee('home-hero-progress')
             ->assertDontSee('home-hero-arrow')
             ->assertDontSee('data-home-slide=', false)
-            ->assertDontSee('data-home-direction=', false)
-            ->assertSee('Tepuk Tangan × Livi Visual — Est. January 2020, Indonesia');
+            ->assertDontSee('data-home-direction=', false);
     }
 
-    public function test_home_uses_database_media_for_every_image_outside_the_hero_carousel(): void
+    public function test_home_renders_hardcoded_photo_files_without_photo_records(): void
     {
-        $this->createHomeMedia();
+        $this->createHomeVideo();
 
         $response = $this->get('/')->assertOk();
         $content = (string) $response->getContent();
 
         $this->assertSame(0, substr_count($content, 'https://images.unsplash.com'));
         $this->assertSame(20, substr_count($content, '/storage/gallery/photos/'));
-        $this->assertSame(9, substr_count($content, 'home-gallery-card '));
-        $response
-            ->assertSee('/storage/gallery/photos/frame-01.jpg')
-            ->assertSee('/storage/gallery/photos/frame-20.jpg')
-            ->assertSee('Frame 08')
-            ->assertSee('Photography by Tepuk Tangan')
-            ->assertSee('Wedding story')
-            ->assertSee('Film by Livi Visual')
-            ->assertSee('Tepuk Tangan × Livi Visual. Founded 2020, Indonesia.');
-    }
-
-    private function createHomeMedia(): void
-    {
-        for ($index = 1; $index <= 20; $index++) {
-            Photo::factory()->create([
-                'title' => sprintf('Frame %02d', $index),
-                'path' => sprintf('gallery/photos/frame-%02d.jpg', $index),
-            ]);
+        $this->assertSame(9, substr_count($content, 'class="home-gallery-card '));
+        foreach ([
+            'DIA00001.jpg',
+            'DIA00003.jpg',
+            'DIA00007.jpg',
+            'DIA00021.jpg',
+            'DIA00039.jpg',
+            'DIA00056.jpg',
+            'DIA00223.jpg',
+            'DIA00313.jpg',
+            'DIA00368.jpg',
+            'DIA00384.jpg',
+            'DIA00396.jpg',
+            'DIA00462.jpg',
+            'DIA00465.jpg',
+            'DIA00478.jpg',
+            'DIA00486.jpg',
+            'DIA08889.jpg',
+            'DIA08913.jpg',
+            'DIA08966.jpg',
+            'DIA09013.jpg',
+            'DIA09069.jpg',
+        ] as $photoFilename) {
+            $response->assertSee('/storage/gallery/photos/'.$photoFilename);
         }
 
+        $response
+            ->assertSee('Photography by Tepuk Tangan')
+            ->assertSee('home-gallery-card--film', false)
+            ->assertSee('Film by Livi Visual')
+            ->assertSee('© Tepuk Tangan × Livi Visual. Founded 2020, Indonesia.');
+    }
+
+    private function createHomeVideo(): void
+    {
         Video::factory()->create([
             'title' => 'Wedding story',
             'path' => 'gallery/videos/story.mp4',
