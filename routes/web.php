@@ -23,6 +23,10 @@ Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/gallery/photos', [PhotoController::class, 'index'])->name('gallery.photos');
 Route::get('/gallery/videos', [VideoController::class, 'index'])->name('gallery.videos');
 
-Route::get('/photoboot', function () {
-    return view('photoboot');
+Route::get('/photobooth', function () {
+    return view('photobooth');
 })->name('photobooth');
+
+Route::get('/lumenara', function () {
+    return view('lumenara');
+})->name('lumenara');
