@@ -23,17 +23,39 @@ class GalleryPagesTest extends TestCase
     {
         $client = Client::create([
             'client_name' => 'Simon & Sherly',
-            'card_title' => 'Melbourne Wedding',
             'cover_image' => null,
-            'month_date' => 'Apr 3',
+            'month_date' => '03/04/25',
             'client_type' => 'gallery',
         ]);
 
         $this->get('/gallery')
             ->assertOk()
-            ->assertSee('Melbourne Wedding')
+            ->assertSee('Simon & Sherly')
             ->assertSee('Read More')
             ->assertSee(route('gallery.detail', $client));
+    }
+
+    public function test_gallery_detail_shows_client_photos_and_formatted_month_date(): void
+    {
+        $client = Client::create([
+            'client_name' => 'Stephen & Phoppy Wedding',
+            'cover_image' => 'gallery/Stephen&Poppy/DIA00495.jpg',
+            'month_date' => '13/10/25',
+            'client_type' => 'gallery',
+        ]);
+
+        $client->assets()->create([
+            'file_path' => 'gallery/Stephen&Poppy/DIA00495.jpg',
+            'file_type' => 'photo',
+            'alt' => 'Stephen & Phoppy Wedding',
+            'sort_order' => 0,
+        ]);
+
+        $this->get(route('gallery.detail', $client))
+            ->assertOk()
+            ->assertSee('Stephen & Phoppy Wedding')
+            ->assertSee('13/10/25')
+            ->assertSee('/storage/gallery/Stephen&Poppy/DIA00495.jpg');
     }
 
     public function test_legacy_photo_and_video_gallery_urls_return_not_found(): void

@@ -1,12 +1,11 @@
 <div class="client-detail">
     <header class="client-detail__header">
         <h1 class="client-detail__title">{{ $client->display_title }}</h1>
-        <p class="client-detail__meta">
-            <span>{{ $client->card_title }}</span>
-            @if ($client->month_date)
+        @if ($client->month_date)
+            <p class="client-detail__meta">
                 <span>{{ $client->month_date }}</span>
-            @endif
-        </p>
+            </p>
+        @endif
     </header>
 
     <div class="client-detail__media">

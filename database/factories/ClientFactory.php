@@ -19,9 +19,8 @@ class ClientFactory extends Factory
     {
         return [
             'client_name' => fake()->name(),
-            'card_title' => fake()->words(2, true),
             'cover_image' => null,
-            'month_date' => fake()->date('M j'),
+            'month_date' => fake()->date('d/m/y'),
             'client_type' => fake()->randomElement(['gallery', 'photobooth', 'lumenara', 'livestream']),
         ];
     }

@@ -7,7 +7,6 @@
         @endif
     </a>
 
-    <p class="client-card__eyebrow">{{ $client->card_title }}</p>
     <h2 class="client-card__title">{{ $client->display_title }}</h2>
     <a class="client-card__more" href="{{ route($detailRoute, $client) }}">Read More</a>
 </article>
