@@ -9,10 +9,9 @@
     </button>
     <div class="nav__menu" id="primary-navigation">
         <a @class(['nav__link', 'is-active' => request()->routeIs('home', 'root')]) href="{{ route('home') }}" @if (request()->routeIs('home', 'root')) aria-current="page" @endif>Home</a>
-        <a @class(['nav__link', 'is-active' => request()->routeIs('gallery', 'gallery.photos', 'gallery.videos')]) href="{{ route('gallery') }}" @if (request()->routeIs('gallery', 'gallery.photos', 'gallery.videos')) aria-current="page" @endif>Gallery</a>
-        <a @class(['nav__link', 'is-active' => request()->routeIs('photobooth')]) href="{{ route('photobooth') }}" @if (request()->routeIs('photobooth')) aria-current="page" @endif>Photobooth</a>
-        <a @class(['nav__link', 'is-active' => request()->routeIs('livestreaming')]) href="{{ route('livestreaming') }}" @if (request()->routeIs('livestreaming')) aria-current="page" @endif>LiveStreaming</a>
-        <a @class(['nav__link', 'is-active' => request()->routeIs('lumenara')]) href="{{ route('lumenara') }}" @if (request()->routeIs('lumenara')) aria-current="page" @endif>Lumenara</a>
+        <a @class(['nav__link', 'is-active' => request()->routeIs('gallery', 'gallery.photos', 'gallery.videos', 'gallery.detail')]) href="{{ route('gallery') }}" @if (request()->routeIs('gallery', 'gallery.photos', 'gallery.videos', 'gallery.detail')) aria-current="page" @endif>Gallery</a>
+        <a @class(['nav__link', 'is-active' => request()->routeIs('photobooth', 'photobooth.detail')]) href="{{ route('photobooth') }}" @if (request()->routeIs('photobooth', 'photobooth.detail')) aria-current="page" @endif>Photobooth</a>
+        <a @class(['nav__link', 'is-active' => request()->routeIs('livestreaming', 'livestreaming.detail')]) href="{{ route('livestreaming') }}" @if (request()->routeIs('livestreaming', 'livestreaming.detail')) aria-current="page" @endif>LiveStreaming</a>
+        <a @class(['nav__link', 'is-active' => request()->routeIs('lumenara', 'lumenara.detail')]) href="{{ route('lumenara') }}" @if (request()->routeIs('lumenara', 'lumenara.detail')) aria-current="page" @endif>Lumenara</a>
         <a @class(['nav__link', 'is-active' => request()->routeIs('inquiry')]) href="{{ route('inquiry') }}" @if (request()->routeIs('inquiry')) aria-current="page" @endif>Inquiry</a>
-    </div>
-</nav>
+    </div></nav>

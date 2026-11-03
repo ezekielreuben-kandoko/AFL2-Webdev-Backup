@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Client;
 use App\Models\Photo;
 use App\Models\Video;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
@@ -11,15 +12,32 @@ class GalleryPagesTest extends TestCase
 {
     use LazilyRefreshDatabase;
 
-    public function test_gallery_page_links_to_photo_and_video_subpages(): void
+    public function test_gallery_page_shows_client_gallery_without_photo_and_video_navigation(): void
     {
         $this->get('/gallery')
             ->assertOk()
             ->assertViewIs('gallery.index')
-            ->assertSee('Photo')
-            ->assertSee('Video')
-            ->assertSee(route('gallery.photos'))
-            ->assertSee(route('gallery.videos'));
+            ->assertSee('Gallery')
+            ->assertSee('Belum ada klien galeri.')
+            ->assertDontSee(route('gallery.photos'))
+            ->assertDontSee(route('gallery.videos'));
+    }
+
+    public function test_gallery_page_shows_client_cards_from_the_database(): void
+    {
+        $client = Client::create([
+            'client_name' => 'Simon & Sherly',
+            'card_title' => 'Melbourne Wedding',
+            'cover_image' => null,
+            'month_date' => 'Apr 3',
+            'client_type' => 'gallery',
+        ]);
+
+        $this->get('/gallery')
+            ->assertOk()
+            ->assertSee('Melbourne Wedding')
+            ->assertSee('Read More')
+            ->assertSee(route('gallery.detail', $client));
     }
 
     public function test_photo_subpage_shows_empty_state_when_there_are_no_photos(): void

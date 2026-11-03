@@ -511,7 +511,7 @@ body {
 }
 
 .about-hero, .about-artist-section, .about-footer {
-    width: min(calc(100% - 64px), 1280px);
+    width: min(calc(100% - 64px), 1120px);
     margin-inline: auto;
 }
 
@@ -1710,7 +1710,7 @@ body:has(.video-page) .nav {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    padding: 22px clamp(24px, 5vw, 76px);
+    padding: 22px max(24px, calc((100% - 1120px) / 2));
     border-top: 1px solid #eaeaea;
     color: #77756f;
     font-size: 8px;
@@ -2332,7 +2332,7 @@ body:has(.home-page) .nav {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    padding: 22px clamp(24px, 5vw, 76px);
+    padding: 22px max(24px, calc((100% - 1120px) / 2));
     border-top: 1px solid #eaeaea;
     color: #77756f;
     font-size: 9px;
@@ -2600,4 +2600,152 @@ body:has(.home-page) .nav {
 }
 
 @media (prefers-reduced-motion: reduce) {
+}
+
+.client-page {
+    width: min(calc(100% - 48px), 760px);
+    margin-inline: auto;
+    padding-block: clamp(48px, 7vw, 88px) clamp(64px, 9vw, 112px);
+    color: #2b2a26;
+}
+
+.client-page__title {
+    margin: 0 0 clamp(36px, 6vw, 64px);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+.client-list {
+    display: grid;
+    gap: clamp(56px, 9vw, 96px);
+}
+
+.client-list__empty {
+    margin: 0;
+    color: #77756f;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 16px;
+}
+
+.client-card {
+    display: grid;
+    gap: 16px;
+}
+
+.client-card__cover-link {
+    display: block;
+    text-decoration: none;
+}
+
+.client-card__cover {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    background: #ecebe7;
+    object-fit: cover;
+}
+
+.client-card__cover--empty {
+    display: block;
+}
+
+.client-card__eyebrow {
+    margin: 0;
+    color: #3f3d38;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(15px, 1.6vw, 18px);
+    line-height: 1.4;
+}
+
+.client-card__title {
+    margin: 0;
+    color: #2b2a26;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(24px, 3.4vw, 34px);
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+.client-card__more {
+    width: fit-content;
+    color: #8a857a;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    transition: color 160ms ease;
+}
+
+.client-card__more:hover {
+    color: #2b2a26;
+}
+
+.client-detail {
+    width: min(calc(100% - 48px), 1000px);
+    margin-inline: auto;
+    padding-block: clamp(56px, 8vw, 104px);
+    color: #2b2a26;
+}
+
+.client-detail__header {
+    margin-bottom: clamp(36px, 6vw, 64px);
+    text-align: center;
+}
+
+.client-detail__title {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(30px, 4.4vw, 52px);
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.client-detail__meta {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 20px 0 0;
+    color: #55524b;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(14px, 1.4vw, 16px);
+}
+
+.client-detail__media {
+    display: grid;
+    gap: clamp(14px, 2.6vw, 24px);
+}
+
+.client-detail__video,
+.client-detail__photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #171715;
+}
+
+.client-detail__empty {
+    margin: 32px 0 0;
+    color: #77756f;
+    font-family: Georgia, 'Times New Roman', serif;
+    text-align: center;
+}
+
+.client-detail__back {
+    display: inline-block;
+    margin-top: clamp(32px, 5vw, 56px);
+    color: #55524b;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+@media (max-width: 620px) {
+    .client-page,
+    .client-detail {
+        width: min(calc(100% - 40px), 100%);
+    }
 }
