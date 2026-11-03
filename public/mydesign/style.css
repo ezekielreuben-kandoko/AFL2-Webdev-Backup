@@ -2733,7 +2733,7 @@ body:has(.home-page) .nav {
     margin: 0;
     color: #1f1e1a;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: clamp(64px, 11vw, 136px);
+    font-size: clamp(48px, 11vw, 90px);
     font-weight: 400;
     letter-spacing: -0.045em;
     line-height: 0.9;
@@ -2752,7 +2752,7 @@ body:has(.home-page) .nav {
     margin: 0;
     color: #3a3833;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: clamp(18px, 2.2vw, 27px);
+    font-size: clamp(10px, 2vw, 20px);
     line-height: 1.62;
 }
 

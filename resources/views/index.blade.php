@@ -5,10 +5,6 @@
 @section('content')
     <section class="gallery-hero" aria-labelledby="gallery-title">
         <div class="gallery-hero__inner">
-            <div class="gallery-hero__meta" aria-hidden="true">
-                <span>FRAME 01 — ARCHIVE</span>
-                <span class="gallery-hero__rec">REC // 00:00:00</span>
-            </div>
 
             <div class="gallery-hero__stage">
                 <span class="gallery-hero__corner gallery-hero__corner--tl" aria-hidden="true"></span>
@@ -17,7 +13,7 @@
                 <span class="gallery-hero__corner gallery-hero__corner--br" aria-hidden="true"></span>
 
                 <div class="gallery-hero__content">
-                    <p class="gallery-hero__eyebrow">Editorial Photography &amp; Videography</p>
+                    <p class="gallery-hero__eyebrow">Our Story</p>
                     <h1 class="gallery-hero__title" id="gallery-title">Gallery</h1>
                     <span class="gallery-hero__rule" aria-hidden="true"></span>
                     <blockquote class="gallery-hero__quote">
