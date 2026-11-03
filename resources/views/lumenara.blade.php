@@ -6,7 +6,7 @@
     <section class="client-page" aria-labelledby="lumenara-title">
         <h1 class="client-page__title" id="lumenara-title">Lumenara</h1>
 
-        @include('partials.client-list', [
+        @include('components.client-list', [
             'clients' => $clients,
             'detailRoute' => $detailRoute,
             'emptyMessage' => $emptyMessage,

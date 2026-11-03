@@ -8,6 +8,6 @@ class GalleryController extends Controller
 {
     public function index(): View
     {
-        return view('gallery.index', ['active' => 'gallery']);
+        return view('index', ['active' => 'gallery']);
     }
 }

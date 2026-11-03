@@ -32,7 +32,7 @@
 
             <div class="about-artist-grid about-artist-grid--three">
                 @foreach ($photographers as $artist)
-                    @include('partials.artist-card', ['artist' => $artist, 'film' => false])
+                    @include('components.artist-card', ['artist' => $artist, 'film' => false])
                 @endforeach
             </div>
         </section>
@@ -66,7 +66,7 @@
 
             <div class="about-artist-grid about-artist-grid--three">
                 @foreach ($directors as $artist)
-                    @include('partials.artist-card', ['artist' => $artist, 'film' => true])
+                    @include('components.artist-card', ['artist' => $artist, 'film' => true])
                 @endforeach
             </div>
         </section>
@@ -79,7 +79,7 @@
 
         <footer class="about-footer">
             <p>© 2026 Holder. All stories held with care.</p>
-            @include('partials.social-links')
+            @include('components.social-links')
         </footer>
     </div>
 @endsection

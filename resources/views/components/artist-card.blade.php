@@ -1,5 +1,5 @@
 <article @class(['about-artist-card', 'about-artist-card--offset' => $artist['offset']])>
-    <a class="about-artist-image-link" href="{{ route($film ? 'gallery.videos' : 'gallery.photos') }}" aria-label="{{ $film ? 'Watch films by Name' : "View Name's portfolio" }}">
+    <a class="about-artist-image-link" href="{{ route('gallery') }}" aria-label="{{ $film ? 'Watch films by Name' : "View Name's portfolio" }}">
         <div @class(['about-artist-image', 'about-artist-image--film' => $film])>
             <img class="about-artist-portrait" src="{{ $artist['portrait'] }}" alt="Editorial portrait representing Name" @if ($film || ($artist['portrait_lazy'] ?? false)) loading="lazy" @endif>
             <img class="about-artist-work" src="{{ $artist['work'] }}" alt="{{ $artist['work_alt'] }}" loading="lazy">
@@ -15,6 +15,6 @@
             <p>Holder</p>
         </div>
         <p class="about-artist-bio">Holder</p>
-        <a class="about-text-link" href="{{ route($film ? 'gallery.videos' : 'gallery.photos') }}">{{ $artist['link_text'] ?? ($film ? 'Watch films' : 'View Name portfolio') }} <span aria-hidden="true">⟶</span></a>
+        <a class="about-text-link" href="{{ route('gallery') }}">{{ $artist['link_text'] ?? ($film ? 'Watch films' : 'View Name portfolio') }} <span aria-hidden="true">⟶</span></a>
     </div>
 </article>

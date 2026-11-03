@@ -41,13 +41,22 @@ body {
     font-family: var(--font-sans), Arial, sans-serif;
 }
 
-.nav__brand img {
-    display: flex;
-    max-width: 100%;
-    max-height: 100%;
-    width: 200px;
-    height: 50%;
+.nav__brand-logo {
+    display: block;
+    position: relative;
+    width: 280px;
+    height: 70px;
+    overflow: hidden;
+}
 
+.nav__brand-logo img {
+    position: absolute;
+    top: -183.21px;
+    left: -93.77px;
+    width: 466.67px;
+    height: 466.67px;
+    max-width: none;
+    max-height: none;
 }
 
 .nav__menu {
@@ -406,6 +415,18 @@ body {
 
     .nav__brand {
         margin-right: auto;
+    }
+
+    .nav__brand-logo {
+        width: 200px;
+        height: 50px;
+    }
+
+    .nav__brand-logo img {
+        top: -130.86px;
+        left: -66.98px;
+        width: 333.33px;
+        height: 333.33px;
     }
 
     .nav__toggle {

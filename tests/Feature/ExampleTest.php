@@ -17,7 +17,7 @@ class ExampleTest extends TestCase
             ->assertOk()
             ->assertSee('class="nav"', false)
             ->assertSee('mydesign/style.css')
-            ->assertSee('Tepuk Tangan & Livi Visual | Home')
+            ->assertSee('Tepuk Tangan | Home')
             ->assertSee('Home')
             ->assertSee('aria-current="page"', false)
             ->assertSee('Photobooth');

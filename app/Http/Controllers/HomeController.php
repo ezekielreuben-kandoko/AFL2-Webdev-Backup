@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Video;
 use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
@@ -11,7 +10,6 @@ class HomeController extends Controller
     {
         return view('home', [
             'active' => 'home',
-            'filmVideo' => Video::query()->orderBy('path')->first(),
             'heroSlides' => ['DIA00001.jpg', 'DIA00003.jpg', 'DIA00007.jpg', 'DIA00021.jpg', 'DIA00039.jpg'],
             'galleryPhotos' => ['DIA00313.jpg', 'DIA00368.jpg', 'DIA00384.jpg', 'DIA00396.jpg', 'DIA00462.jpg', 'DIA00465.jpg', 'DIA00478.jpg', 'DIA00486.jpg'],
             'collageFrames' => [

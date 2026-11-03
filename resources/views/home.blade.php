@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tepuk Tangan & Livi Visual | Home')
+@section('title', 'Tepuk Tangan | Home')
 
 @section('content')
     <div class="home-page">
@@ -44,19 +44,17 @@
 
                 <div class="home-gallery-grid">
                     @foreach ($galleryPhotos as $index => $file)
-                        <a class="home-gallery-card home-gallery-card--{{ $index + 1 }}" href="{{ route('gallery.photos') }}">
+                        <a class="home-gallery-card home-gallery-card--{{ $index + 1 }}" href="{{ route('gallery') }}">
                             <img src="/storage/gallery/photos/{{ $file }}" alt="Wedding photography by Tepuk Tangan" loading="lazy">
                             <span><i>Photography by Tepuk Tangan</i></span>
                         </a>
                     @endforeach
 
-                    @if ($filmVideo)
-                        <a class="home-gallery-card home-gallery-card--film" href="{{ route('gallery.videos') }}">
-                            <img src="/storage/gallery/photos/DIA08889.jpg" alt="Wedding film by Livi Visual" loading="lazy">
-                            <span><i>Film by Livi Visual</i></span>
-                            <span class="home-gallery-film-mark" aria-hidden="true">Play film ↗</span>
-                        </a>
-                    @endif
+                    <a class="home-gallery-card home-gallery-card--film" href="{{ route('gallery') }}">
+                        <img src="/storage/gallery/photos/DIA08889.jpg" alt="Wedding film by Livi Visual" loading="lazy">
+                        <span><i>Film by Livi Visual</i></span>
+                        <span class="home-gallery-film-mark" aria-hidden="true">Play film ↗</span>
+                    </a>
                 </div>
                 <a class="home-archive-link" href="{{ route('gallery') }}">Explore all stories <span aria-hidden="true">⟶</span></a>
             </div>

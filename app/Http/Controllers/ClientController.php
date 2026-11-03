@@ -7,17 +7,17 @@ use Illuminate\Contracts\View\View;
 
 class ClientController extends Controller
 {
-    public function gallery(): View
+    public function galleryClients(): View
     {
         return $this->listClients(
             'gallery',
-            'gallery.index',
+            'index',
             'gallery.detail',
             'Belum ada klien galeri.'
         );
     }
 
-    public function photobooth(): View
+    public function photoboothClients(): View
     {
         return $this->listClients(
             'photobooth',
@@ -27,7 +27,7 @@ class ClientController extends Controller
         );
     }
 
-    public function lumenara(): View
+    public function lumenaraClients(): View
     {
         return $this->listClients(
             'lumenara',
@@ -37,7 +37,7 @@ class ClientController extends Controller
         );
     }
 
-    public function livestreaming(): View
+    public function livestreamingClients(): View
     {
         return $this->listClients(
             'livestream',

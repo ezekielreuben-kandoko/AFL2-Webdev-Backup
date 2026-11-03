@@ -6,7 +6,7 @@
     <section class="client-page" aria-labelledby="livestreaming-title">
         <h1 class="client-page__title" id="livestreaming-title">Livestreaming</h1>
 
-        @include('partials.client-list', [
+        @include('components.client-list', [
             'clients' => $clients,
             'detailRoute' => $detailRoute,
             'emptyMessage' => $emptyMessage,

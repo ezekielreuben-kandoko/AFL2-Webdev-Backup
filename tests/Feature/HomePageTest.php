@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Video;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Tests\TestCase;
 
@@ -12,8 +11,6 @@ class HomePageTest extends TestCase
 
     public function test_home_page_renders_the_editorial_sections_and_existing_navigation(): void
     {
-        $this->createHomeVideo();
-
         $response = $this->get('/')->assertOk();
 
         $response
@@ -37,8 +34,6 @@ class HomePageTest extends TestCase
 
     public function test_home_page_omits_gallery_filters_and_manual_carousel_controls(): void
     {
-        $this->createHomeVideo();
-
         $response = $this->get('/home');
 
         $response
@@ -54,8 +49,6 @@ class HomePageTest extends TestCase
 
     public function test_home_renders_hardcoded_photo_files_without_photo_records(): void
     {
-        $this->createHomeVideo();
-
         $response = $this->get('/')->assertOk();
         $content = (string) $response->getContent();
 
@@ -92,13 +85,5 @@ class HomePageTest extends TestCase
             ->assertSee('home-gallery-card--film', false)
             ->assertSee('Film by Livi Visual')
             ->assertSee('© Tepuk Tangan × Livi Visual. Founded 2020, Indonesia.');
-    }
-
-    private function createHomeVideo(): void
-    {
-        Video::factory()->create([
-            'title' => 'Wedding story',
-            'path' => 'gallery/videos/story.mp4',
-        ]);
     }
 }
