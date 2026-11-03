@@ -47,13 +47,13 @@ class HomePageTest extends TestCase
             ->assertDontSee('data-home-direction=', false);
     }
 
-    public function test_home_renders_hardcoded_photo_files_without_photo_records(): void
+    public function test_home_renders_its_local_photo_copies_without_photo_records(): void
     {
         $response = $this->get('/')->assertOk();
         $content = (string) $response->getContent();
 
         $this->assertSame(0, substr_count($content, 'https://images.unsplash.com'));
-        $this->assertSame(20, substr_count($content, '/storage/gallery/photos/'));
+        $this->assertSame(20, substr_count($content, '/assets/Home/'));
         $this->assertSame(9, substr_count($content, 'class="home-gallery-card '));
         foreach ([
             'DIA00001.jpg',
@@ -77,7 +77,7 @@ class HomePageTest extends TestCase
             'DIA09013.jpg',
             'DIA09069.jpg',
         ] as $photoFilename) {
-            $response->assertSee('/storage/gallery/photos/'.$photoFilename);
+            $response->assertSee('/assets/Home/'.$photoFilename);
         }
 
         $response

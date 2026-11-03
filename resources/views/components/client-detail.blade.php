@@ -10,14 +10,23 @@
 
     <div class="client-detail__media">
         @foreach ($client->videos as $asset)
-            <video class="client-detail__video" controls playsinline preload="metadata">
+            <video class="client-detail__video" controls playsinline preload="metadata" aria-label="{{ $client->display_title }} wedding video">
                 <source src="{{ $asset->url }}">
             </video>
         @endforeach
 
-        @foreach ($client->photos as $asset)
-            <img class="client-detail__photo" src="{{ $asset->url }}" alt="{{ $asset->alt ?: $client->display_title }}" loading="lazy">
-        @endforeach
+        @if ($client->photos->isNotEmpty())
+            <div class="client-detail__photos">
+                @foreach ($client->photos as $asset)
+                    <img
+                        class="client-detail__photo{{ $loop->first ? ' client-detail__photo--feature' : '' }}"
+                        src="{{ $asset->url }}"
+                        alt="{{ $asset->alt ?: $client->display_title }}"
+                        loading="{{ $loop->first ? 'eager' : 'lazy' }}"
+                    >
+                @endforeach
+            </div>
+        @endif
     </div>
 
     @if ($client->videos->isEmpty() && $client->photos->isEmpty())

@@ -51,7 +51,7 @@
                     @endforeach
 
                     <a class="home-gallery-card home-gallery-card--film" href="{{ route('gallery') }}">
-                        <img src="/storage/gallery/photos/DIA08889.jpg" alt="Wedding film" loading="lazy">
+                        <img src="/storage/gallery/photos/DIA08889.jpg" alt="Wedding film by Livi Visual" loading="lazy">
                         <span><i>Film</i></span>
                         <span class="home-gallery-film-mark" aria-hidden="true">Play film ↗</span>
                     </a>

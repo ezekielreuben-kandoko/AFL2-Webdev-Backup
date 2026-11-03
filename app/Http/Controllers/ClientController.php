@@ -9,12 +9,15 @@ class ClientController extends Controller
 {
     public function galleryClients(): View
     {
-        return $this->listClients(
-            'gallery',
-            'index',
-            'gallery.detail',
-            'Belum ada klien galeri.'
-        );
+        $clients = Client::query()
+            ->where('client_type', 'gallery')
+            ->latest()
+            ->get();
+
+        return view('index', [
+            'active' => 'gallery',
+            'clients' => $clients,
+        ]);
     }
 
     public function photoboothClients(): View

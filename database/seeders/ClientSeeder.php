@@ -20,6 +20,11 @@ class ClientSeeder extends Seeder
                 'cover_image' => 'gallery/Erica&Alvin/DIA00699.JPG',
                 'month_date' => '06/06/22',
             ],
+            [
+                'client_name' => 'Vera & Nuel',
+                'cover_image' => 'gallery/photos/.jpg',
+                'month_date' => null,
+            ],
         ];
 
         foreach ($clients as $data) {
