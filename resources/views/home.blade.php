@@ -8,7 +8,7 @@
             <div class="home-hero-track" aria-live="off">
                 @foreach ($heroSlides as $index => $file)
                     <article class="home-hero-slide">
-                        <img src="/storage/gallery/photos/{{ $file }}" alt="Wedding photography by Tepuk Tangan" @if ($index === 0) fetchpriority="high" @else loading="lazy" @endif>
+                        <img src="{{ asset('assets/Home/'.$file) }}" alt="Wedding photography by Tepuk Tangan" @if ($index === 0) fetchpriority="high" @else loading="lazy" @endif>
                     </article>
                 @endforeach
             </div>
@@ -28,8 +28,8 @@
                 </div>
             </div>
             <figure class="home-intro-figure">
-                <img class="home-intro-portrait" src="/storage/gallery/photos/DIA00056.jpg" alt="Wedding photography by Tepuk Tangan" loading="lazy">
-                <img class="home-intro-detail" src="/storage/gallery/photos/DIA00223.jpg" alt="" aria-hidden="true" loading="lazy">
+                <img class="home-intro-portrait" src="{{ asset('assets/Home/DIA00056.jpg') }}" alt="Wedding photography by Tepuk Tangan" loading="lazy">
+                <img class="home-intro-detail" src="{{ asset('assets/Home/DIA00223.jpg') }}" alt="" aria-hidden="true" loading="lazy">
             </figure>
         </section>
 
@@ -45,13 +45,13 @@
                 <div class="home-gallery-grid">
                     @foreach ($galleryPhotos as $index => $file)
                         <a class="home-gallery-card home-gallery-card--{{ $index + 1 }}" href="{{ route('gallery') }}">
-                            <img src="/storage/gallery/photos/{{ $file }}" alt="Wedding photography by Tepuk Tangan" loading="lazy">
+                            <img src="{{ asset('assets/Home/'.$file) }}" alt="Wedding photography by Tepuk Tangan" loading="lazy">
                             <span><i>Photography by Tepuk Tangan</i></span>
                         </a>
                     @endforeach
 
                     <a class="home-gallery-card home-gallery-card--film" href="{{ route('gallery') }}">
-                        <img src="/storage/gallery/photos/DIA08889.jpg" alt="Wedding film by Livi Visual" loading="lazy">
+                        <img src="{{ asset('assets/Home/DIA08889.jpg') }}" alt="Wedding film by Livi Visual" loading="lazy">
                         <span><i>Film by Livi Visual</i></span>
                         <span class="home-gallery-film-mark" aria-hidden="true">Play film ↗</span>
                     </a>
@@ -63,7 +63,7 @@
         <section class="home-collage" aria-labelledby="home-cta-title">
             @foreach ($collageFrames as $frame)
                 <div class="home-collage-frame home-collage-frame--{{ $frame['class'] }}" data-parallax="{{ $frame['parallax'] }}">
-                    <img src="/storage/gallery/photos/{{ $frame['file'] }}" alt="" aria-hidden="true" loading="lazy">
+                    <img src="{{ asset('assets/Home/'.$frame['file']) }}" alt="" aria-hidden="true" loading="lazy">
                 </div>
             @endforeach
             <div class="home-collage-copy">
