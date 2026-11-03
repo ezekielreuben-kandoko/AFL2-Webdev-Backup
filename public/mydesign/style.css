@@ -76,6 +76,27 @@ body {
     max-height: none;
 }
 
+.nav__brand-logo--compact img {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: 100%;
+    max-width: 280px;
+    object-fit: contain;
+}
+
+.nav__brand-logo--livestream img {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
 .nav__menu {
     display: flex;
     align-items: center;

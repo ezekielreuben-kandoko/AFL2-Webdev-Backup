@@ -1,7 +1,7 @@
 <nav class="nav" aria-label="Navigasi utama">
     <a class="nav__brand" href="{{ route('home') }}">
         <span class="nav__brand-logo">
-            <img src="{{ asset('assets/images/lumenaara_white.png') }}" alt="Logo">
+            <img src="{{ asset('assets/Logo/lumenaara_white.png') }}" alt="Logo">
         </span>
     </a>
     <button class="nav__toggle" type="button" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="primary-navigation">
