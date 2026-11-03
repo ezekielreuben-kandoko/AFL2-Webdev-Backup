@@ -13,6 +13,7 @@ class ClientAssetSeeder extends Seeder
         $clients = [
             'Stephen & Phoppy Wedding' => 'gallery/Stephen&Poppy',
             'Erica & Alvin' => 'gallery/Erica&Alvin',
+            'Vera & Nuel' => 'gallery/photos',
         ];
 
         foreach ($clients as $clientName => $folder) {
@@ -40,6 +41,23 @@ class ClientAssetSeeder extends Seeder
                     'alt' => $client->client_name,
                     'sort_order' => $index,
                 ]);
+            }
+
+            if ($clientName === 'Vera & Nuel') {
+                $videoPath = 'gallery/videos/Wdding Cinema - Vera & Nuel.mp4';
+
+                if (! Storage::disk('public')->exists($videoPath)) {
+                    throw new \RuntimeException('The Vera & Nuel wedding video was not found in gallery/videos.');
+                }
+
+                $client->assets()->updateOrCreate(
+                    ['file_path' => $videoPath],
+                    [
+                        'file_type' => 'video',
+                        'alt' => 'Vera & Nuel wedding film',
+                        'sort_order' => 0,
+                    ]
+                );
             }
         }
     }

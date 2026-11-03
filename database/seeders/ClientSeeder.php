@@ -21,12 +21,18 @@ class ClientSeeder extends Seeder
                 'folder' => 'gallery/Erica&Alvin',
                 'month_date' => '06/06/22',
             ],
+            [
+                'client_name' => 'Vera & Nuel',
+                'folder' => 'gallery/photos',
+                'month_date' => null,
+            ],
         ];
 
         foreach ($clients as $data) {
             Client::updateOrCreate(
                 ['client_name' => $data['client_name']],
                 [
+                    'card_title' => $data['client_name'],
                     'cover_image' => $this->firstImage($data['folder']),
                     'month_date' => $data['month_date'],
                     'client_type' => 'gallery',

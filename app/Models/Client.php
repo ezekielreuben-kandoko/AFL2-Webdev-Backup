@@ -14,6 +14,7 @@ class Client extends Model
 
     protected $fillable = [
         'client_name',
+        'card_title',
         'cover_image',
         'month_date',
         'client_type',
@@ -51,6 +52,6 @@ class Client extends Model
 
     public function getDisplayTitleAttribute(): string
     {
-        return $this->client_name;
+        return $this->card_title ?: $this->client_name;
     }
 }

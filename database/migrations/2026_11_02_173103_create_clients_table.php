@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('client_name');
+            $table->string('card_title');
             $table->string('cover_image')->nullable();
             $table->string('month_date')->nullable();
             $table->string('client_type')->index();
