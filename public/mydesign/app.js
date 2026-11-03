@@ -355,8 +355,6 @@ document.querySelectorAll('.inquiry-form').forEach((form) => {
         addLine('Jenis Session', getPillLabels('session_type[]').join(', '));
         addLine('Tanggal Shoot', formatDate(getValue('shoot_date')));
         addLine('Lokasi', getValue('location'));
-        addLine('Budget', getPillLabels('budget')[0] ?? '');
-
         if (vision) {
             lines.push('', 'Cerita / moodboard:', vision);
         }

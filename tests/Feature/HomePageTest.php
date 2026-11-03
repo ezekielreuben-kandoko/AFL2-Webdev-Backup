@@ -83,7 +83,5 @@ class HomePageTest extends TestCase
         $response
             ->assertSee('Photography by Tepuk Tangan')
             ->assertSee('home-gallery-card--film', false)
-            ->assertSee('Film by Livi Visual')
-            ->assertSee('© Tepuk Tangan × Livi Visual. Founded 2020, Indonesia.');
     }
 }

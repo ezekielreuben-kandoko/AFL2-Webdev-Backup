@@ -20,7 +20,7 @@
                 <h1 id="home-intro-title">Where fleeting golden hours become classic, living heirlooms.</h1>
                 <div class="home-intro-story">
                     <p class="home-eyebrow">Who we are</p>
-                    <p>We are a collective of passionate, creative photographers and videographers collaborating together to realize your once-in-a-lifetime story. Founded in January 2020 in Indonesia, Tepuk Tangan and Livi Visual have continuously challenged our team to capture your golden moments—and it is always a genuine pleasure to preserve every frame.</p>
+                    <p>We are a collective of passionate, creative photographers and videographers collaborating together to realize your once-in-a-lifetime story. Founded in January 2020 in Indonesia, Tepuk Tangan has continuously challenged our team to capture your golden moments—and it is always a genuine pleasure to preserve every frame.</p>
                 </div>
                 <div class="home-intro-story home-intro-belief">
                     <p class="home-eyebrow">Our believe</p>
@@ -51,8 +51,8 @@
                     @endforeach
 
                     <a class="home-gallery-card home-gallery-card--film" href="{{ route('gallery') }}">
-                        <img src="/storage/gallery/photos/DIA08889.jpg" alt="Wedding film by Livi Visual" loading="lazy">
-                        <span><i>Film by Livi Visual</i></span>
+                        <img src="/storage/gallery/photos/DIA08889.jpg" alt="Wedding film" loading="lazy">
+                        <span><i>Film</i></span>
                         <span class="home-gallery-film-mark" aria-hidden="true">Play film ↗</span>
                     </a>
                 </div>

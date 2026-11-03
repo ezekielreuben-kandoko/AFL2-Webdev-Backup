@@ -10,7 +10,25 @@
     <link rel="stylesheet" href="{{ asset('mydesign/style.css') }}">
 </head>
 <body>
-    @include('Navbar', ['active' => $active ?? ''])
+    @php
+    $route = request()->route()->getName();
+    if (in_array($route, ['home', 'root'])) {
+        $navbarFile = 'components.navbar-home';
+    } elseif (in_array($route, ['gallery', 'gallery.detail'])) {
+        $navbarFile = 'components.navbar-gallery';
+    } elseif ($route === 'inquiry') {
+        $navbarFile = 'components.navbar-inquiry';
+    } elseif (in_array($route, ['photobooth', 'photobooth.detail'])) {
+        $navbarFile = 'components.navbar-photobooth';
+    } elseif (in_array($route, ['livestreaming', 'livestreaming.detail'])) {
+        $navbarFile = 'components.navbar-livestream';
+    } elseif (in_array($route, ['lumenara', 'lumenara.detail'])) {
+        $navbarFile = 'components.navbar-lumenara';
+    } else {
+        $navbarFile = 'components.navbar-home';
+    }
+@endphp
+@include($navbarFile)
 
     <main>
         @yield('content')

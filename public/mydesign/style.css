@@ -41,6 +41,8 @@ body {
     font-family: var(--font-sans), Arial, sans-serif;
 }
 
+
+
 .nav__brand-logo {
     display: block;
     position: relative;
@@ -57,6 +59,27 @@ body {
     height: 466.67px;
     max-width: none;
     max-height: none;
+}
+
+.nav__brand-logo--compact img {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: 100%;
+    max-width: 280px;
+    object-fit: contain;
+}
+
+.nav__brand-logo--livestream img {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .nav__menu {
@@ -882,7 +905,6 @@ body {
     justify-items: center;
     gap: 20px;
     padding: clamp(72px, 10vw, 132px) 24px;
-    border-top: 1px solid #e5e5e5;
     text-align: center;
 }
 
@@ -1210,6 +1232,103 @@ body:has(.home-page) {
 
 .home-archive-link:hover {
     gap: 18px;
+}
+
+.gallery-hero {
+    background: #ffffff;
+    color: #141414;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+gallery-hero__wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: min(calc(100% - 64px), 1120px);
+    margin: 0 auto;
+    padding: 56px 0 40px;
+}
+
+gallery-hero__frame {
+    width: 100%;
+    max-width: 120px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8a8a86;
+    display: block;
+}
+
+gallery-hero__frame--mirror {
+    text-align: right;
+}
+
+gallery-hero__inner {
+    flex: 1;
+    margin: 0 auto;
+}
+
+gallery-hero__stage {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding-top: 12px;
+}
+
+gallery-hero__content {
+    max-width: 780px;
+}
+
+gallery-hero__eyebrow {
+    margin: 0 0 14px;
+    color: #8a8a86;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+gallery-hero__title {
+    margin: 0 0 18px;
+    font-family: 'Glacial Indifference', Arial, sans-serif;
+    font-weight: 700;
+    font-size: clamp(64px, 9vw, 128px);
+    letter-spacing: -0.04em;
+    line-height: 0.92;
+    color: #0e0e0e;
+}
+
+gallery-hero__rule {
+    display: block;
+    height: 1px;
+    background: #e6e6e6;
+    width: 100%;
+    margin: 20px 0;
+}
+
+gallery-hero__quote {
+    margin: 0;
+    font-style: italic;
+    font-size: clamp(18px, 1.6vw, 24px);
+    line-height: 1.6;
+    color: #5b5b57;
+    max-width: 70ch;
+}
+
+gallery-hero__quote::before {
+    content: "\201C";
+    color: #c9b78a;
+    font-size: 1.2em;
+    line-height: 0;
+    vertical-align: -0.15em;
+    margin-right: 0.18em;
+}
+
+gallery-hero__accent {
+    margin: 18px 0 0;
+    font-style: italic;
+    color: #c9b78a;
+    font-size: clamp(13px, 1.1vw, 16px);
+    line-height: 1.5;
 }
 
 .gallery-media {
@@ -1732,7 +1851,6 @@ body:has(.video-page) .nav {
     justify-content: space-between;
     gap: 20px;
     padding: 22px max(24px, calc((100% - 1120px) / 2));
-    border-top: 1px solid #eaeaea;
     color: #77756f;
     font-size: 8px;
     letter-spacing: 0.08em;
@@ -2354,7 +2472,6 @@ body:has(.home-page) .nav {
     justify-content: space-between;
     gap: 20px;
     padding: 22px max(24px, calc((100% - 1120px) / 2));
-    border-top: 1px solid #eaeaea;
     color: #77756f;
     font-size: 9px;
     letter-spacing: 0.08em;

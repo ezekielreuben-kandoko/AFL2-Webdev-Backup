@@ -14,34 +14,9 @@
             </section>
 
             <figure class="inquiry-portrait">
-                <svg viewBox="0 0 420 480" role="img" aria-labelledby="portrait-title">
-                    <title id="portrait-title">Ilustrasi fotografer sedang mengambil gambar</title>
-                    <rect width="420" height="480" fill="#e8e5df" />
-                    <path d="M0 353c54-42 111-63 177-55 71 8 118 46 243 24v158H0z" fill="#c6c1b8" />
-                    <path d="M124 480c8-94 19-170 61-210 20-19 42-27 70-27 51 0 89 36 105 93l25 144z" fill="#353431" />
-                    <path d="M197 226c-7-55 13-104 60-110 48-6 73 32 67 86-4 42-29 72-66 72-31 0-56-17-61-48" fill="#a49e95" />
-                    <path d="M199 184c9-52 37-77 78-68 23 5 38 19 47 44-23-8-44-13-61-30-13 25-35 42-64 54" fill="#353431" />
-                    <path d="M182 296c18-17 35-26 57-30l40 39 38-42c23 7 42 21 55 42l-58 52-28-28-29 30z" fill="#e1ddd5" />
-                    <path d="m237 277 42 28 39-35 27 15-14 40-48 38-49-33-19-40z" fill="#8f8980" />
-                    <path d="m274 292 57-39 49 12 20 47-27 22-43-25-40 24z" fill="#242321" />
-                    <rect x="323" y="229" width="82" height="57" rx="8" transform="rotate(-18 323 229)" fill="#292826" />
-                    <circle cx="359" cy="254" r="20" fill="#c8c3ba" />
-                    <circle cx="359" cy="254" r="13" fill="#55534e" />
-                    <circle cx="359" cy="254" r="7" fill="#20201f" />
-                    <path d="m319 224 15-13 26-8 12 22z" fill="#292826" />
-                    <path d="M0 0h420v480H0z" fill="none" stroke="#fff" stroke-width="16" />
-                </svg>
+                <img src="{{ asset('assets/images/portrait.jpg') }}" alt="Fotografer sedang mengambil gambar" class="inquiry-portrait-img">
                 <figcaption>Behind every frame, there is a story.</figcaption>
             </figure>
-
-            <section class="inquiry-contact-details" aria-labelledby="contact-title">
-                <h2 class="inquiry-heading" id="contact-title">Let’s capture your story.</h2>
-                <address class="inquiry-contacts">
-                    <a href="tel:+6285748430957">Holder1</a>
-                    <a href="tel:+6285748430957">Holder2</a>
-                    <a href="mailto:info.caliaphotos@gmail.com">Holder@gmail.com</a>
-                </address>
-            </section>
         </aside>
 
         <section class="inquiry-form-section" aria-labelledby="inquiry-title">
@@ -97,15 +72,6 @@
                     </label>
                 </div>
 
-                <fieldset class="inquiry-fieldset">
-                    <legend>Estimated Budget <span class="inquiry-optional">(optional)</span></legend>
-                    <div class="inquiry-pill-options">
-                        @foreach (['3-5-million' => 'Rp 3jt – 5jt', '5-10-million' => 'Rp 5jt – 10jt', '10-million-plus' => 'Rp 10jt+'] as $value => $label)
-                            <label class="inquiry-pill"><input type="radio" name="budget" value="{{ $value }}"><span>{{ $label }}</span></label>
-                        @endforeach
-                    </div>
-                </fieldset>
-
                 <label class="inquiry-field">
                     <span>Tell us about your story, moodboard, or dream session <span class="inquiry-required" aria-label="required">*</span></span>
                     <textarea name="vision" rows="4" placeholder="The feeling, the little details, the things that matter most to you..." required></textarea>
@@ -122,5 +88,5 @@
         </section>
     </div>
 
-    @vite('resources/js/app.js')
+    <script src="{{ asset('mydesign/app.js') }}" defer></script>
 @endsection
